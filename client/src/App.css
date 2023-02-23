@@ -1,38 +1,38 @@
-.App {
-  text-align: center;
+body {
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  border: 1px solid blue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.mainbanner {
+  position: relative;
+  height: 320px;
+  background: linear-gradient(180deg, #ffee58 0%, #ffdc5f 100%);
+  box-shadow: 0px 0px 30px rgba(228, 229, 231, 0.1);
+  border-radius: 32px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.wearedCard {
+  position: absolute;
+  width: 486px;
+  height: 272px;
+  right: 102px;
+  top: 72px;
+  background: #ffffff;
+  box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
+  border-radius: 32px;
 }
 
-.App-link {
-  color: #61dafb;
+.time {
+  margin-top: 56px;
+  border: 1px solid blue;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.time .content {
+  height: 216px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
+  border-radius: 32px;
 }
