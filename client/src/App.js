@@ -1,6 +1,7 @@
 import "./App.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Location from "./components/Location";
 
 function App() {
   const API_KEY = "930c9f8d035adb6eaf38cd659c750b69";
@@ -49,10 +50,7 @@ function App() {
   console.log("미세:", fineDust, "초미세:", ultraFineDust);
   return (
     <>
-      <div className="header">
-        <h4>{weather && weather.name ? weather.name : ""}</h4>
-        <h4>2월 20일(월) 18:30</h4>
-      </div>
+      <Location weather={weather} />
       <div className="mainbanner">
         {weather && <img src={`./img/${weather.weather[0].icon}.png`} />}
         <div className="wearedCard"></div>
