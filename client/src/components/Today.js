@@ -10,15 +10,38 @@ const Today = ({ weather, air }) => {
     }
   }, [weather, air]);
 
+  // * 날씨 정보
+  function showDescription(weather) {
+    const description = weather.weather[0].description;
+    if (description == "	clear sky") {
+      return "맑음";
+    } else if (description == "few clouds") {
+      return "구름 조금";
+    } else if (
+      description == "scattered clouds" ||
+      description == "broken clouds"
+    ) {
+      return "구름 많음";
+    } else if (description == "shower rain" || description == "rain") {
+      return "비";
+    } else if (description == "thunderstorm") {
+      return "뇌우";
+    } else if (description == "snow") {
+      return "눈";
+    } else if (description == "mist") {
+      return "안개";
+    }
+  }
+
   return (
     <Banner isDay={isDay}>
       <Weather>
         {weather && <WeatherImg src={`./img/${weather.weather[0].icon}.png`} />}
-        <Info>
+        <Info isDay={isDay}>
           <p>현재</p>
           <TempInfo>
             <div>{weather && weather.main.temp.toFixed(1)}˚</div>
-            <div>{weather && weather.weather[0].description}</div>
+            <div>{weather && showDescription(weather)}</div>
           </TempInfo>
           <p>
             <img src="./img/icon_humidity.png" />
@@ -75,12 +98,13 @@ const Info = styled.div`
   p {
     opacity: 0.4;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 14px;
     line-height: 17px;
     margin-bottom: 8px;
     display: flex;
     img {
+      user-select: none;
       margin-right: 4px;
       filter: ${({ isDay }) => (isDay ? "invert()" : "")};
     }
@@ -100,7 +124,7 @@ const TempInfo = styled.div`
   div:last-child {
     font-weight: 400;
     font-size: 24px;
-    line-height: 38px;
+    line-height: 30px;
   }
 `;
 

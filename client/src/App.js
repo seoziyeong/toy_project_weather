@@ -20,8 +20,8 @@ function App() {
 
       Promise.all(
         [
-          `${API_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`,
-          `${API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`,
+          `${API_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
+          `${API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
           `${API_URL}/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
         ].map((url) => axios.get(url))
       ).then(
@@ -31,7 +31,7 @@ function App() {
           console.log("현재:", res1.data);
 
           // res2 : 5일간 날씨정보
-          // console.log("5일데이터:", res2.data);
+          console.log("5일데이터:", res2.data);
           // 3시간 간격 시간대별 날씨
           // 주별날씨로 가공하기 :
 
@@ -40,7 +40,6 @@ function App() {
           setUltraFineDust(res3.data.list[0].components.pm2_5);
 
           const air = res3.data.list[0].main.aqi;
-          console.log(air);
           if (air == 2 || air == 3) {
             setAir("보통");
           } else if (air == 4) {
