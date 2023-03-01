@@ -3,12 +3,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Location from "./components/Location";
 import Today from "./components/Today";
+import Hourly from "./components/Hourly";
 
 function App() {
   const API_URL = "https://api.openweathermap.org/data/2.5";
   const API_KEY = "930c9f8d035adb6eaf38cd659c750b69";
 
   const [weather, setWeather] = useState(null); // 현재 날씨
+  const [hour, setHour] = useState([]); // 시간대별 날씨
   const [fineDust, setFineDust] = useState(null); // 미세먼지
   const [ultraFineDust, setUltraFineDust] = useState(null); // 초미세먼지
   const [air, setAir] = useState("좋음"); // 대기 질 지수
@@ -30,15 +32,14 @@ function App() {
           setWeather(res1.data);
           console.log("현재:", res1.data);
 
-          // res2 : 5일간 날씨정보
-          console.log("5일데이터:", res2.data);
-          // 3시간 간격 시간대별 날씨
+          // * res2 : 시간대별 날씨
+          console.log("시간:", res2.data.list);
+          setHour(res2.data.list);
           // 주별날씨로 가공하기 :
 
           // res3 : 미세먼지 정보
           setFineDust(res3.data.list[0].components.pm10);
           setUltraFineDust(res3.data.list[0].components.pm2_5);
-
           const air = res3.data.list[0].main.aqi;
           if (air == 2 || air == 3) {
             setAir("보통");
@@ -65,6 +66,7 @@ function App() {
     <>
       <Location weather={weather} />
       <Today weather={weather} air={air} />
+      <Hourly hour={hour} />
       <div className="time">
         <h2>시간대별 날씨</h2>
         <div className="content"></div>

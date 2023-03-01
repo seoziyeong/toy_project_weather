@@ -19,7 +19,9 @@ const Today = ({ weather, air }) => {
       return "구름 조금";
     } else if (description == "03" || description == "04") {
       return "구름 많음";
-    } else if (description == "09" || description == "10") {
+    } else if (description == "09") {
+      return "소나기";
+    } else if (description == "10") {
       return "비";
     } else if (description == "11") {
       return "뇌우";
@@ -37,7 +39,7 @@ const Today = ({ weather, air }) => {
         <Info isDay={isDay}>
           <p>현재</p>
           <TempInfo>
-            <div>{weather && weather.main.temp.toFixed(1)}˚</div>
+            <div>{weather && Math.round(weather.main.temp)}˚</div>
             <div>{weather && showDescription(weather)}</div>
           </TempInfo>
           <p>
@@ -77,8 +79,7 @@ const Weather = styled.div`
 `;
 
 const WeatherImg = styled.img`
-  user-select: none;
-  margin-right: 32px;
+  margin-right: 40px;
   animation: up-down 1s infinite ease-in-out alternate;
   @keyframes up-down {
     from {
@@ -101,7 +102,6 @@ const Info = styled.div`
     margin-bottom: 8px;
     display: flex;
     img {
-      user-select: none;
       margin-right: 4px;
       filter: ${({ isDay }) => (isDay ? "invert()" : "")};
     }
