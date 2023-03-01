@@ -12,23 +12,20 @@ const Today = ({ weather, air }) => {
 
   // * 날씨 정보
   function showDescription(weather) {
-    const description = weather.weather[0].description;
-    if (description == "	clear sky") {
+    const description = weather.weather[0].icon.substr(0, 2);
+    if (description == "01") {
       return "맑음";
-    } else if (description == "few clouds") {
+    } else if (description == "02") {
       return "구름 조금";
-    } else if (
-      description == "scattered clouds" ||
-      description == "broken clouds"
-    ) {
+    } else if (description == "03" || description == "04") {
       return "구름 많음";
-    } else if (description == "shower rain" || description == "rain") {
+    } else if (description == "09" || description == "10") {
       return "비";
-    } else if (description == "thunderstorm") {
+    } else if (description == "11") {
       return "뇌우";
-    } else if (description == "snow") {
+    } else if (description == "13") {
       return "눈";
-    } else if (description == "mist") {
+    } else if (description == "50") {
       return "안개";
     }
   }
