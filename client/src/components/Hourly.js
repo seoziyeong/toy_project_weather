@@ -1,26 +1,18 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Hourly = ({ hour }) => {
   const hourData = hour.slice(0, 14);
 
+  // * 슬라이드
   const [moveIndex, setMoveIndex] = useState("1");
 
   const leftMove = () => {
     setMoveIndex("1");
   };
-
   const rightMove = () => {
     setMoveIndex("2");
   };
-
-  // const leftMove = () => {
-  //   setMoveIndex((prev) => prev + 13);
-  // };
-
-  // const rightMove = () => {
-  //   setMoveIndex((prev) => prev - 13);
-  // };
 
   // * 현재 시간 텍스트 추출
   function getDayTime(hour) {
