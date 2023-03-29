@@ -1,9 +1,11 @@
 import "./App.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Location from "./components/Location";
-import Today from "./components/Today";
-import Hourly from "./components/Hourly";
+import { Location } from "./components/Location";
+import { Today } from "./components/Today";
+import { Hourly } from "./components/Hourly";
+import { Air } from "./components/Air";
+import styled from "styled-components";
 
 function App() {
   const API_URL = "https://api.openweathermap.org/data/2.5";
@@ -41,11 +43,11 @@ function App() {
           setFineDust(res3.data.list[0].components.pm10);
           setUltraFineDust(res3.data.list[0].components.pm2_5);
           const air = res3.data.list[0].main.aqi;
-          if (air == 2 || air == 3) {
+          if (air === 2 || air === 3) {
             setAir("보통");
-          } else if (air == 4) {
+          } else if (air === 4) {
             setAir("나쁨");
-          } else if (air == 5) {
+          } else if (air === 5) {
             setAir("매우 나쁨");
           }
         })
@@ -60,25 +62,23 @@ function App() {
     getData();
   }, []);
 
-  // console.log("미세:", fineDust, "초미세:", ultraFineDust);
+  console.log("미세:", fineDust, "초미세:", ultraFineDust, "air:", air);
 
   return (
     <>
       <Location weather={weather} />
       <Today weather={weather} air={air} />
       <Hourly hour={hour} />
-      <div className="time">
-        <h2>시간대별 날씨</h2>
-        <div className="content"></div>
-      </div>
-      <div>
-        <div className="dust">
-          <h2>미세먼지</h2>
-          <div className="content"></div>
-        </div>
-      </div>
+      <Container>
+        <Air air={air} fineDust={fineDust} ultraFineDust={ultraFineDust} />
+      </Container>
     </>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  display: flex;
+  gap: 24px;
+`;

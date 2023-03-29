@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Location = ({ weather }) => {
+export const Location = ({ weather }) => {
   // * 오늘 날짜 / 시간
   const today = new Date();
   const month = today.getMonth() + 1;
@@ -15,7 +15,7 @@ const Location = ({ weather }) => {
   return (
     <Header>
       <City>
-        <img src={`./img/icon_location.png`} />
+        <img src={`./img/icon_location.png`} alt="location" />
         <h4>{weather && weather.name ? weather.name : ""}</h4>
       </City>
 
@@ -23,8 +23,6 @@ const Location = ({ weather }) => {
     </Header>
   );
 };
-
-export default Location;
 
 const Header = styled.div`
   margin: 32px 0;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-const Today = ({ weather, air }) => {
+export const Today = ({ weather, air }) => {
   // * 주/야 설정
   const [isDay, setIsDay] = useState(true);
   useEffect(() => {
@@ -13,21 +13,21 @@ const Today = ({ weather, air }) => {
   // * 날씨 정보
   function showDescription(weather) {
     const description = weather.weather[0].icon.substr(0, 2);
-    if (description == "01") {
+    if (description === "01") {
       return "맑음";
-    } else if (description == "02") {
+    } else if (description === "02") {
       return "구름 조금";
-    } else if (description == "03" || description == "04") {
+    } else if (description === "03" || description === "04") {
       return "구름 많음";
-    } else if (description == "09") {
+    } else if (description === "09") {
       return "소나기";
-    } else if (description == "10") {
+    } else if (description === "10") {
       return "비";
-    } else if (description == "11") {
+    } else if (description === "11") {
       return "뇌우";
-    } else if (description == "13") {
+    } else if (description === "13") {
       return "눈";
-    } else if (description == "50") {
+    } else if (description === "50") {
       return "안개";
     }
   }
@@ -43,12 +43,12 @@ const Today = ({ weather, air }) => {
             <div>{weather && showDescription(weather)}</div>
           </TempInfo>
           <p>
-            <img src="./img/icon_humidity.png" />
+            <img src="./img/icon_humidity.png" alt="humidity" />
             습도 {weather && weather.main.humidity} %
           </p>
           <p>
-            <img src="./img/icon_air.png" />
-            미세먼지 {air}{" "}
+            <img src="./img/icon_air.png" alt="air" />
+            미세먼지 {air}
           </p>
         </Info>
       </Weather>
@@ -56,8 +56,6 @@ const Today = ({ weather, air }) => {
     </Banner>
   );
 };
-
-export default Today;
 
 const Banner = styled.div`
   position: relative;
