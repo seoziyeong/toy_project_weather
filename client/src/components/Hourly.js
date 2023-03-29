@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { Division } from "./atom/Division";
 
-const Hourly = ({ hour }) => {
+export const Hourly = ({ hour }) => {
   const hourData = hour.slice(0, 14);
 
   // * 슬라이드
@@ -17,8 +18,8 @@ const Hourly = ({ hour }) => {
   // * 현재 시간 텍스트 추출
   function getDayTime(hour) {
     let daytime;
-    if (hour.sys.pod == "d") daytime = "오전";
-    else if (hour.sys.pod == "n") daytime = "오후";
+    if (hour.sys.pod === "d") daytime = "오전";
+    else if (hour.sys.pod === "n") daytime = "오후";
     let dtText = hour.dt_txt.split(" ")[1].slice(0, 2);
     if (dtText > 12) {
       dtText -= 12;
@@ -31,32 +32,37 @@ const Hourly = ({ hour }) => {
   // * 아이콘 매칭
   function getIcon(hour) {
     const icon = hour.weather[0].icon;
-    if (icon == "01d") return "☀";
-    else if (icon == "02d") return "🌤";
-    else if (icon == "10d") return "🌦";
-    else if (icon == "01n") return "🌙";
-    else if (icon == "02n") return <img src="./img/custom_02n.png" />;
-    else if (icon == "10n") return <img src="./img/custom_10n.png" />;
-    else if (icon == "03d" || icon == "03n" || icon == "04d" || icon == "04n")
+    if (icon === "01d") return "☀";
+    else if (icon === "02d") return "🌤";
+    else if (icon === "10d") return "🌦";
+    else if (icon === "01n") return "🌙";
+    else if (icon === "02n") return <img src="./img/custom_02n.png" alt="" />;
+    else if (icon === "10n") return <img src="./img/custom_10n.png" alt="" />;
+    else if (
+      icon === "03d" ||
+      icon === "03n" ||
+      icon === "04d" ||
+      icon === "04n"
+    )
       return "☁️";
-    else if (icon == "09d" || icon == "09n") return "🌧"; // 소나기
-    else if (icon == "13d" || icon == "13n") return "❄️";
-    else if (icon == "50d" || icon == "50n") return "🌫"; // 안개
+    else if (icon === "09d" || icon === "09n") return "🌧"; // 소나기
+    else if (icon === "13d" || icon === "13n") return "❄️";
+    else if (icon === "50d" || icon === "50n") return "🌫"; // 안개
   }
 
   return (
     <Contents>
       <SlideButton onClick={leftMove}>
-        <img src="./img/icon_prev.png" />
+        <img src="./img/icon_prev.png" alt="" />
       </SlideButton>
       <SlideButton onClick={rightMove}>
-        <img src="./img/icon_next.png" />
+        <img src="./img/icon_next.png" alt="" />
       </SlideButton>
       <h2>시간대별 날씨</h2>
       <Box>
         <List moveIndex={moveIndex}>
           {hourData.map((v, i) => {
-            if (v.dt_txt.split(" ")[1].slice(0, 2) == 21) {
+            if (v.dt_txt.split(" ")[1].slice(0, 2) === "21") {
               return (
                 <>
                   <Unit key={i}>
@@ -64,11 +70,11 @@ const Hourly = ({ hour }) => {
                     <p>{getIcon(v)}</p>
                     <p>{Math.round(v.main.temp)}˚</p>
                     <p>
-                      <img src="./img/icon_humidity2.png" />
+                      <img src="./img/icon_humidity2.png" alt="" />
                       {v.main.humidity}%
                     </p>
                   </Unit>
-                  <Division key={"div" + i} />
+                  <Division />
                 </>
               );
             } else {
@@ -78,7 +84,7 @@ const Hourly = ({ hour }) => {
                   <p>{getIcon(v)}</p>
                   <p>{Math.round(v.main.temp)}˚</p>
                   <p>
-                    <img src="./img/icon_humidity2.png" />
+                    <img src="./img/icon_humidity2.png" alt="" />
                     {v.main.humidity}%
                   </p>
                 </Unit>
@@ -90,8 +96,6 @@ const Hourly = ({ hour }) => {
     </Contents>
   );
 };
-
-export default Hourly;
 
 const SlideButton = styled.div`
   width: 40px;
@@ -113,6 +117,7 @@ const SlideButton = styled.div`
 
 const Contents = styled.div`
   margin-top: 32px;
+  margin-bottom: 32px;
   position: relative;
 
   h2 {
@@ -143,7 +148,7 @@ const List = styled.div`
   flex-direction: row;
   gap: 24px;
   transform: ${(props) =>
-    props.moveIndex == "1" ? "translateX(0%)" : "translateX(-13%)"};
+    props.moveIndex === "1" ? "translateX(0%)" : "translateX(-8%)"};
   transition: all ease 1s;
 `;
 
@@ -187,11 +192,4 @@ const Unit = styled.div`
       margin-right: 2px;
     }
   }
-`;
-
-const Division = styled.div`
-  width: 2px;
-  height: 136px;
-  background: #ffffff;
-  border: 1px dashed #e4e7ee;
 `;
