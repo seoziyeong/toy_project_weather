@@ -22,6 +22,8 @@ function App() {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
+      console.log(lat, lon);
+
       Promise.all(
         [
           `${API_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
@@ -30,11 +32,11 @@ function App() {
         ].map((url) => axios.get(url))
       ).then(
         axios.spread((res1, res2, res3) => {
-          // * res1 : 현재 날씨정보
+          // res1 : 현재 날씨정보
           setWeather(res1.data);
           console.log("현재:", res1.data);
 
-          // * res2 : 시간대별 날씨
+          // res2 : 시간대별 날씨
           console.log("시간:", res2.data.list);
           setHour(res2.data.list);
           // 주별날씨로 가공하기 :
@@ -61,8 +63,6 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log("미세:", fineDust, "초미세:", ultraFineDust, "air:", air);
 
   return (
     <>

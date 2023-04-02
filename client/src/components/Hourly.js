@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Division } from "./atom/Division";
+import { GrayText } from "./atom/GrayText";
 
 export const Hourly = ({ hour }) => {
   const hourData = hour.slice(0, 14);
@@ -66,7 +67,7 @@ export const Hourly = ({ hour }) => {
               return (
                 <>
                   <Unit key={i}>
-                    <p>{getDayTime(v)}</p>
+                    <GrayText>{getDayTime(v)}</GrayText>
                     <p>{getIcon(v)}</p>
                     <p>{Math.round(v.main.temp)}˚</p>
                     <p>
@@ -80,7 +81,7 @@ export const Hourly = ({ hour }) => {
             } else {
               return (
                 <Unit key={i}>
-                  <p>{getDayTime(v)}</p>
+                  <GrayText>{getDayTime(v)}</GrayText>
                   <p>{getIcon(v)}</p>
                   <p>{Math.round(v.main.temp)}˚</p>
                   <p>
@@ -116,8 +117,7 @@ const SlideButton = styled.div`
 `;
 
 const Contents = styled.div`
-  margin-top: 32px;
-  margin-bottom: 32px;
+  margin-top: 56px;
   position: relative;
 
   h2 {
@@ -148,7 +148,7 @@ const List = styled.div`
   flex-direction: row;
   gap: 24px;
   transform: ${(props) =>
-    props.moveIndex === "1" ? "translateX(0%)" : "translateX(-8%)"};
+    props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)"};
   transition: all ease 1s;
 `;
 
@@ -157,14 +157,8 @@ const Unit = styled.div`
   flex-direction: column;
   text-align: center;
 
-  p:nth-child(1) {
-    width: 64px;
-    color: #898a8f;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-  }
   p:nth-child(2) {
+    width: 64px;
     user-select: none;
     margin: 16px 0;
     font-size: 34px;

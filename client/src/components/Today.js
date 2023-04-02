@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { WearedCard } from "./WearedCard";
 
 export const Today = ({ weather, air }) => {
   // * 주/야 설정
@@ -52,7 +53,9 @@ export const Today = ({ weather, air }) => {
           </p>
         </Info>
       </Weather>
-      <WearedCard></WearedCard>
+      <WearedCard
+        weather={weather && Math.round(weather.main.temp)}
+      ></WearedCard>
     </Banner>
   );
 };
@@ -123,13 +126,13 @@ const TempInfo = styled.div`
   }
 `;
 
-const WearedCard = styled.div`
-  position: absolute;
-  width: 486px;
-  height: 272px;
-  right: 102px;
-  top: 72px;
-  background: #ffffff;
-  box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
-  border-radius: 32px;
-`;
+// const WearedCard = styled.div`
+//   position: absolute;
+//   width: 486px;
+//   height: 272px;
+//   right: 102px;
+//   top: 72px;
+//   background: #ffffff;
+//   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
+//   border-radius: 32px;
+// `;
