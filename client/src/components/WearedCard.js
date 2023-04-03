@@ -33,13 +33,7 @@ export const WearedCard = ({ weather }) => {
   return (
     <WearedCardStyled>
       <GrayText>오늘은</GrayText>
-      <Title>
-        {handleTitle()}
-        {/* <pre>{handleTitle()}</pre> */}
-        {/* 추운 한겨울 날씨!
-        <br />
-        따뜻히 입어서 대비해야 해요.{" "} */}
-      </Title>
+      <Title>{handleTitle()}</Title>
     </WearedCardStyled>
   );
 };

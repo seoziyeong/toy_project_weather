@@ -6,6 +6,7 @@ import { Today } from "./components/Today";
 import { Hourly } from "./components/Hourly";
 import { Air } from "./components/Air";
 import styled from "styled-components";
+import { Weekly } from "./components/Weekly";
 
 function App() {
   const API_URL = "https://api.openweathermap.org/data/2.5";
@@ -34,24 +35,34 @@ function App() {
         axios.spread((res1, res2, res3) => {
           // res1 : 현재 날씨정보
           setWeather(res1.data);
-          console.log("현재:", res1.data);
 
           // res2 : 시간대별 날씨
-          console.log("시간:", res2.data.list);
-          setHour(res2.data.list);
+          const WEEKDAY = [
+            "일요일",
+            "월요일",
+            "화요일",
+            "수요일",
+            "목요일",
+            "금요일",
+            "토요일",
+          ];
+
+          let dayHour = [...res2.data.list];
+          for (let row of dayHour) {
+            row["day"] = WEEKDAY[new Date(row.dt_txt.split(" ")[0]).getDay()];
+          }
+
+          setHour(dayHour);
+
           // 주별날씨로 가공하기 :
 
           // res3 : 미세먼지 정보
           setFineDust(res3.data.list[0].components.pm10);
           setUltraFineDust(res3.data.list[0].components.pm2_5);
-          const air = res3.data.list[0].main.aqi;
-          if (air === 2 || air === 3) {
-            setAir("보통");
-          } else if (air === 4) {
-            setAir("나쁨");
-          } else if (air === 5) {
-            setAir("매우 나쁨");
-          }
+          if (fineDust <= 30) setAir("좋음");
+          else if (fineDust <= 80) setAir("보통");
+          else if (fineDust <= 150) setAir("나쁨");
+          else if (fineDust >= 151) setAir("매우 나쁨");
         })
       );
     }
@@ -71,6 +82,7 @@ function App() {
       <Hourly hour={hour} />
       <Container>
         <Air air={air} fineDust={fineDust} ultraFineDust={ultraFineDust} />
+        <Weekly hour={hour} />
       </Container>
     </>
   );

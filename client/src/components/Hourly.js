@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
 
@@ -65,8 +65,8 @@ export const Hourly = ({ hour }) => {
           {hourData.map((v, i) => {
             if (v.dt_txt.split(" ")[1].slice(0, 2) === "21") {
               return (
-                <>
-                  <Unit key={i}>
+                <React.Fragment key={i}>
+                  <Unit>
                     <GrayText>{getDayTime(v)}</GrayText>
                     <p>{getIcon(v)}</p>
                     <p>{Math.round(v.main.temp)}˚</p>
@@ -76,7 +76,7 @@ export const Hourly = ({ hour }) => {
                     </p>
                   </Unit>
                   <Division />
-                </>
+                </React.Fragment>
               );
             } else {
               return (
