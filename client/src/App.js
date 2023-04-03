@@ -16,14 +16,12 @@ function App() {
   const [hour, setHour] = useState([]); // 시간대별 날씨
   const [fineDust, setFineDust] = useState(null); // 미세먼지
   const [ultraFineDust, setUltraFineDust] = useState(null); // 초미세먼지
-  const [air, setAir] = useState("좋음"); // 대기 질 지수
+  const [air, setAir] = useState("-"); // 대기 질 지수
 
   async function getData() {
     function onGeoOk(position) {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
-      console.log(lat, lon);
 
       Promise.all(
         [
@@ -46,7 +44,6 @@ function App() {
             "금요일",
             "토요일",
           ];
-
           let dayHour = [...res2.data.list];
           for (let row of dayHour) {
             row["day"] = WEEKDAY[new Date(row.dt_txt.split(" ")[0]).getDay()];
@@ -54,18 +51,18 @@ function App() {
 
           setHour(dayHour);
 
-          // 주별날씨로 가공하기 :
-
           // res3 : 미세먼지 정보
           setFineDust(res3.data.list[0].components.pm10);
           setUltraFineDust(res3.data.list[0].components.pm2_5);
-          if (fineDust <= 30) setAir("좋음");
-          else if (fineDust <= 80) setAir("보통");
-          else if (fineDust <= 150) setAir("나쁨");
-          else if (fineDust >= 151) setAir("매우 나쁨");
+          if (res3.data.list[0].components.pm10 <= 30) setAir("좋음");
+          else if (res3.data.list[0].components.pm10 <= 80) setAir("보통");
+          else if (res3.data.list[0].components.pm10 <= 150) setAir("나쁨");
+          else if (res3.data.list[0].components.pm10 >= 151)
+            setAir("매우 나쁨");
         })
       );
     }
+
     function onGeoError() {
       alert("위치를 찾을 수 없네요. 날씨 정보를 알려드릴 수 없어요. 😥");
     }

@@ -3,10 +3,10 @@ import { GrayText } from "./atom/GrayText";
 
 export const WearedCard = ({ weather }) => {
   function handleTitle() {
-    if (weather >= 27) {
+    if (weather >= 30) {
       return `매우 더운 한여름 날씨!
 가볍게 입되 자외선 차단에 신경쓰세요.`;
-    } else if (weather >= 23) {
+    } else if (weather >= 27) {
       return `꽤 덥게 느껴져요.
 옷차림을 가볍게 입어도 좋겠어요.`;
     } else if (weather >= 20) {
@@ -24,7 +24,7 @@ export const WearedCard = ({ weather }) => {
     } else if (weather >= 6) {
       return `꽤 춥게 느껴져요.
 추위를 막아주는 옷을 입어야 해요.`;
-    } else if (weather <= 5) {
+    } else if (weather <= 2) {
       return `매우 추운 한겨울 날씨!
 따뜻히 입어서 대비해야 해요.`;
     }

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
+import { getIcon } from "../utils/getIcon";
 
 export const Hourly = ({ hour }) => {
   const hourData = hour.slice(0, 14);
@@ -30,27 +31,6 @@ export const Hourly = ({ hour }) => {
     return result;
   }
 
-  // * 아이콘 매칭
-  function getIcon(hour) {
-    const icon = hour.weather[0].icon;
-    if (icon === "01d") return "☀";
-    else if (icon === "02d") return "🌤";
-    else if (icon === "10d") return "🌦";
-    else if (icon === "01n") return "🌙";
-    else if (icon === "02n") return <img src="./img/custom_02n.png" alt="" />;
-    else if (icon === "10n") return <img src="./img/custom_10n.png" alt="" />;
-    else if (
-      icon === "03d" ||
-      icon === "03n" ||
-      icon === "04d" ||
-      icon === "04n"
-    )
-      return "☁️";
-    else if (icon === "09d" || icon === "09n") return "🌧"; // 소나기
-    else if (icon === "13d" || icon === "13n") return "❄️";
-    else if (icon === "50d" || icon === "50n") return "🌫"; // 안개
-  }
-
   return (
     <Contents>
       <SlideButton onClick={leftMove}>
@@ -68,7 +48,7 @@ export const Hourly = ({ hour }) => {
                 <React.Fragment key={i}>
                   <Unit>
                     <GrayText>{getDayTime(v)}</GrayText>
-                    <p>{getIcon(v)}</p>
+                    <p>{getIcon(v.weather[0].icon)}</p>
                     <p>{Math.round(v.main.temp)}˚</p>
                     <p>
                       <img src="./img/icon_humidity2.png" alt="" />
@@ -82,7 +62,7 @@ export const Hourly = ({ hour }) => {
               return (
                 <Unit key={i}>
                   <GrayText>{getDayTime(v)}</GrayText>
-                  <p>{getIcon(v)}</p>
+                  <p>{getIcon(v.weather[0].icon)}</p>
                   <p>{Math.round(v.main.temp)}˚</p>
                   <p>
                     <img src="./img/icon_humidity2.png" alt="" />
@@ -159,6 +139,7 @@ const Unit = styled.div`
 
   p:nth-child(2) {
     width: 64px;
+    height: 43px;
     user-select: none;
     margin: 16px 0;
     font-size: 34px;
