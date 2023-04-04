@@ -1,14 +1,9 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
 import React from "react";
 import { getIcon } from "../utils/getIcon";
 
 export const Weekly = ({ hour }) => {
-  // useEffect(() => {
-  // }, [hour]);
-
   // let day = new Date(2016, a-1, b);
   // const WEEKDAY = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   // let week = WEEKDAY[day.getDay()];
@@ -45,7 +40,6 @@ export const Weekly = ({ hour }) => {
     allHumidity.push(humidityList);
     allIcons.push(iconList);
   });
-  console.log("allIcons", allIcons);
 
   function getMaxTemp(temp) {
     const max = Math.max(...temp);
@@ -72,7 +66,6 @@ export const Weekly = ({ hour }) => {
     return max;
   }
 
-  console.log("groupByData", groupByData);
   return (
     <Contents>
       <h2>주간 날씨</h2>
@@ -129,13 +122,12 @@ const Contents = styled.div`
 
 const Box = styled.div`
   width: 792px;
-  height: 384px;
+  height: 224px;
   background: #ffffff;
   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
   border-radius: 32px;
   padding: 40px;
-  overflow: hidden;
-  text-align: center;
+  position: relative;
 `;
 
 const List = styled.div`
@@ -143,7 +135,6 @@ const List = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 20px;
-  margin-top: 24px;
 `;
 
 const Unit = styled.div`

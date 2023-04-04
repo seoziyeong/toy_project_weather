@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Division } from "./atom/Division";
-import { GrayText } from "./atom/GrayText";
+// import { GrayText } from "./atom/GrayText";
 
-export const Air = ({ air, fineDust, ultraFineDust }) => {
+export const Air = ({ fineDust, ultraFineDust }) => {
   // * 아이콘 매칭
-  function getIcon() {
+  function getIcon(air) {
     if (air === "좋음") return "😄";
     else if (air === "보통") return "🙂";
     else if (air === "나쁨") return "😷";
@@ -39,15 +39,16 @@ export const Air = ({ air, fineDust, ultraFineDust }) => {
     <Contents>
       <h2>대기정보</h2>
       <Box>
-        <Emoji>{getIcon()}</Emoji>
         <InfoContainer>
           <Info>
+            <Emoji>{getIcon(fineDustCondition)}</Emoji>
             <GrayText>미세먼지</GrayText>
             <Badge condition={fineDustCondition}>{fineDustCondition}</Badge>
             <p>{fineDust} ㎍/m³</p>
           </Info>
           <Division />
           <Info>
+            <Emoji>{getIcon(ultraFineDustCondition)}</Emoji>
             <GrayText>초미세먼지</GrayText>
             <Badge condition={ultraFineDustCondition}>
               {ultraFineDustCondition}
@@ -72,7 +73,7 @@ const Contents = styled.div`
 
 const Box = styled.div`
   width: 384px;
-  height: 384px;
+  height: 224px;
   background: #ffffff;
   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
   border-radius: 32px;
@@ -83,22 +84,26 @@ const Box = styled.div`
 
 const Emoji = styled.div`
   font-family: Tossface;
-  font-size: 88px;
-  margin: 24px 0;
+  font-size: 32px;
   user-select: none;
 `;
 
 const Info = styled.div`
   width: 40%;
-  p:first-child {
-    margin-bottom: 12px;
-  }
+
   p:last-child {
     color: #0c0c0e;
     font-weight: 800;
     font-size: 16px;
-    margin-top: 16px;
+    margin-top: 12px;
   }
+`;
+
+const GrayText = styled.p`
+  color: #898a8f;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 8px 0;
 `;
 
 const Badge = styled.span`
