@@ -8,6 +8,7 @@ import { Air } from "./components/Air";
 import styled from "styled-components";
 import { Weekly } from "./components/Weekly";
 import { Footer } from "./components/Footer";
+import { Toast } from "./components/Toast";
 
 function App() {
   const API_URL = "https://api.openweathermap.org/data/2.5";
@@ -77,6 +78,7 @@ function App() {
     <>
       <Location weather={weather} />
       <Today weather={weather} air={air} />
+      <Toast weather={weather} air={air} />
       <Hourly hour={hour} />
       <Container>
         <Air fineDust={fineDust} ultraFineDust={ultraFineDust} />
