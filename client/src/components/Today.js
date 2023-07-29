@@ -6,7 +6,7 @@ export const Today = ({ weather, air }) => {
   // * 주/야 설정
   const [isDay, setIsDay] = useState(true);
   useEffect(() => {
-    if (weather && weather.dt > weather.sys.sunset) {
+    if (weather && weather.weather[0].icon.includes("n")) {
       setIsDay(false);
     }
   }, [weather, air]);
