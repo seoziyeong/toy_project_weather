@@ -12,9 +12,6 @@ import { Toast } from "./components/Toast";
 import theme from "./utils/theme";
 
 function App() {
-  // const API_URL = "https://api.openweathermap.org/data/2.5";
-  // const API_KEY = "930c9f8d035adb6eaf38cd659c750b69";
-
   const API_URL = process.env.REACT_APP_API_URL;
   const API_KEY = process.env.REACT_APP_API_KEY;
 

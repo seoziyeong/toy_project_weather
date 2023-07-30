@@ -14,9 +14,7 @@ export const Toast = ({ weather, air }) => {
     }
   }, [weather, air]);
 
-  console.log("weather", weather);
-
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("dust");
 
   function handleText() {
     if (status === "dust") {
@@ -46,12 +44,18 @@ export const Toast = ({ weather, air }) => {
     }
   }
 
-  if (status === "") {
-    return <></>;
+  const [position, setPosition] = useState(true);
+  function handleClose() {
+    setPosition(false);
   }
 
+  // if (status === "") {
+  //   return <></>;
+  // }
+
   return (
-    <StyledToast status={status}>
+    <StyledToast status={"dust"} position={position} onClick={handleClose}>
+      {/* <StyledToast status={status}> */}
       <pre>{handleText()}</pre>
       <Icon>{handleIcon()}</Icon>
     </StyledToast>
@@ -80,9 +84,12 @@ function getTextColorByStatus(status) {
 }
 
 const StyledToast = styled.div`
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
   padding: 24px 40px;
-  margin: 40px 0 -36px 612px;
-  width: 486px;
+  /* width: 400px; */
   height: 90px;
   border-radius: 32px;
   display: flex;
@@ -91,11 +98,25 @@ const StyledToast = styled.div`
   color: ${({ status }) => getTextColorByStatus(status)};
   border: 2px solid ${({ status }) => getBorderColorByStatus(status)};
   background-color: ${({ status }) => getBGColorByStatus(status)};
+  opacity: 0.9;
+  cursor: pointer;
 
   pre {
     font-weight: 600;
     font-size: 18px;
     font-family: Pretendard Variable;
+  }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 90%;
+    right: 5%;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    margin-left: 57.5%;
+    width: 400px;
+    right: 16px;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
   }
 `;
 

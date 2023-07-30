@@ -28,6 +28,7 @@ const Header = styled.div`
   margin: 32px 0;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const City = styled.div`

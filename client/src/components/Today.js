@@ -61,6 +61,7 @@ export const Today = ({ weather, air }) => {
 };
 
 const Banner = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   height: 320px;
@@ -74,9 +75,17 @@ const Banner = styled.div`
 
 const Weather = styled.div`
   width: 612px;
-  padding-left: 102px;
   display: flex;
   align-items: center;
+
+  @media ${({ theme }) => theme.device.mobile} {
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    padding-left: 5%;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    padding-left: 8%;
+  }
 `;
 
 const WeatherImg = styled.img`
@@ -125,14 +134,3 @@ const TempInfo = styled.div`
     line-height: 30px;
   }
 `;
-
-// const WearedCard = styled.div`
-//   position: absolute;
-//   width: 486px;
-//   height: 272px;
-//   right: 102px;
-//   top: 72px;
-//   background: #ffffff;
-//   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
-//   border-radius: 32px;
-// `;
