@@ -5,15 +5,20 @@ import { Location } from "./components/Location";
 import { Today } from "./components/Today";
 import { Hourly } from "./components/Hourly";
 import { Air } from "./components/Air";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { Weekly } from "./components/Weekly";
 import { Footer } from "./components/Footer";
 import { Toast } from "./components/Toast";
+import theme from "./utils/theme";
 
 function App() {
-  const API_URL = "https://api.openweathermap.org/data/2.5";
-  const API_KEY = "930c9f8d035adb6eaf38cd659c750b69";
+  // const API_URL = "https://api.openweathermap.org/data/2.5";
+  // const API_KEY = "930c9f8d035adb6eaf38cd659c750b69";
 
+  const API_URL = process.env.REACT_APP_API_URL;
+  const API_KEY = process.env.REACT_APP_API_KEY;
+
+  console.log(API_URL);
   const [weather, setWeather] = useState(null); // 현재 날씨
   const [hour, setHour] = useState([]); // 시간대별 날씨
   const [fineDust, setFineDust] = useState(null); // 미세먼지
@@ -75,7 +80,8 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <Test>asdf</Test>
       <Location weather={weather} />
       <Today weather={weather} air={air} />
       <Toast weather={weather} air={air} />
@@ -85,7 +91,7 @@ function App() {
         <Weekly hour={hour} />
       </Container>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
 
@@ -94,4 +100,16 @@ export default App;
 const Container = styled.div`
   display: flex;
   gap: 24px;
+`;
+
+const Test = styled.div`
+  @media ${({ theme }) => theme.device.mobile} {
+    background-color: pink;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    background-color: blue;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    background-color: red;
+  }
 `;
