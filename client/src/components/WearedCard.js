@@ -6,7 +6,7 @@ export const WearedCard = ({ weather }) => {
   function handleTitle() {
     if (weather >= 30) {
       return `매우 더운 한여름 날씨!
-가볍게 입되 자외선 차단에 신경쓰세요.`;
+가벼운 옷차림을 추천해요.`;
     } else if (weather >= 27) {
       return `꽤 덥게 느껴져요.
 옷차림을 가볍게 입는 게 좋겠어요.`;
@@ -187,7 +187,9 @@ const WearedCardStyled = styled.div`
   padding: 40px;
 
   @media ${({ theme }) => theme.device.mobile} {
-    max-width: 90%;
+    width: 90%;
+    right: 5%;
+    top: 70%;
   }
   @media ${({ theme }) => theme.device.tablet} {
     right: 5%;

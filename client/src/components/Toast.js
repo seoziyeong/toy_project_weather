@@ -46,16 +46,21 @@ export const Toast = ({ weather, air }) => {
 
   const [position, setPosition] = useState(true);
   function handleClose() {
-    setPosition(false);
+    setPosition(!position);
   }
 
-  // if (status === "") {
-  //   return <></>;
-  // }
+  if (status === "") {
+    return <></>;
+  }
 
   return (
-    <StyledToast status={"dust"} position={position} onClick={handleClose}>
-      {/* <StyledToast status={status}> */}
+    <StyledToast
+      status={status}
+      position={position}
+      onClick={() => {
+        if (position) handleClose();
+      }}
+    >
       <pre>{handleText()}</pre>
       <Icon>{handleIcon()}</Icon>
     </StyledToast>
@@ -89,7 +94,6 @@ const StyledToast = styled.div`
   bottom: 16px;
   z-index: 10;
   padding: 24px 40px;
-  /* width: 400px; */
   height: 90px;
   border-radius: 32px;
   display: flex;
@@ -99,7 +103,21 @@ const StyledToast = styled.div`
   border: 2px solid ${({ status }) => getBorderColorByStatus(status)};
   background-color: ${({ status }) => getBGColorByStatus(status)};
   opacity: 0.9;
-  cursor: pointer;
+
+  @keyframes positionHidden {
+    from {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
+    to {
+      transform: translateY(50%);
+      opacity: 0;
+    }
+  }
+  animation: ${({ position }) => {
+    if (!position) return "positionHidden 1s";
+  }};
+  animation-fill-mode: forwards; // animation from 상태로 되돌아가지 않음
 
   pre {
     font-weight: 600;
@@ -115,8 +133,6 @@ const StyledToast = styled.div`
     margin-left: 57.5%;
     width: 400px;
     right: 16px;
-  }
-  @media ${({ theme }) => theme.device.desktop} {
   }
 `;
 

@@ -74,13 +74,17 @@ const Banner = styled.div`
 `;
 
 const Weather = styled.div`
-  width: 612px;
   display: flex;
   align-items: center;
 
   @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+    height: 70%;
+    justify-content: center;
   }
   @media ${({ theme }) => theme.device.tablet} {
+    width: 50%;
+    height: 100%;
     padding-left: 5%;
   }
   @media ${({ theme }) => theme.device.desktop} {
@@ -89,7 +93,6 @@ const Weather = styled.div`
 `;
 
 const WeatherImg = styled.img`
-  margin-right: 40px;
   animation: up-down 1s infinite ease-in-out alternate;
   @keyframes up-down {
     from {
@@ -98,6 +101,15 @@ const WeatherImg = styled.img`
     to {
       transform: translatey(-12px);
     }
+  }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    scale: 75%;
+    margin-right: 2%;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    scale: 100%;
+    margin-right: 10%;
   }
 `;
 
@@ -121,7 +133,6 @@ const Info = styled.div`
 const TempInfo = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-bottom: 32px;
 
   div:first-child {
     font-weight: 200;
@@ -130,7 +141,19 @@ const TempInfo = styled.div`
   }
   div:last-child {
     font-weight: 400;
-    font-size: 24px;
     line-height: 30px;
+  }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-bottom: 16px;
+    div:last-child {
+      font-size: 20px;
+    }
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    margin-bottom: 32px;
+    div:last-child {
+      font-size: 24px;
+    }
   }
 `;
