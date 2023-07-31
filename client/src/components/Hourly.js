@@ -7,7 +7,7 @@ import { getIcon } from "../utils/getIcon";
 export const Hourly = ({ hour }) => {
   const hourData = hour.slice(0, 14);
 
-  // * 슬라이드
+  // * desktop 슬라이드
   const [moveIndex, setMoveIndex] = useState("1");
 
   const leftMove = () => {
@@ -94,6 +94,17 @@ const SlideButton = styled.div`
     box-shadow: 0px 0px 10px rgba(12, 12, 14, 0.3);
     transition: all ease 0.3s;
   }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    display: block;
+    transform: ${(props) =>
+      props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)"};
+  }
 `;
 
 const Contents = styled.div`
@@ -112,6 +123,13 @@ const Contents = styled.div`
     right: -20px;
     top: 134px;
   }
+
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 224px;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    margin-top: 56px;
+  }
 `;
 
 const Box = styled.div`
@@ -120,16 +138,27 @@ const Box = styled.div`
   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
   border-radius: 32px;
   padding: 40px;
-  overflow: hidden;
+  overflow-y: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const List = styled.div`
   display: flex;
   flex-direction: row;
   gap: 24px;
-  transform: ${(props) =>
-    props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)"};
   transition: all ease 1s;
+
+  div:last-child {
+    padding-right: 36px;
+  }
+
+  @media ${({ theme }) => theme.device.desktop} {
+    transform: ${(props) =>
+      props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)"};
+  }
 `;
 
 const Unit = styled.div`

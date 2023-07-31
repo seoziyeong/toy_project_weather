@@ -15,7 +15,6 @@ function App() {
   const API_URL = process.env.REACT_APP_API_URL;
   const API_KEY = process.env.REACT_APP_API_KEY;
 
-  console.log(API_URL);
   const [weather, setWeather] = useState(null); // 현재 날씨
   const [hour, setHour] = useState([]); // 시간대별 날씨
   const [fineDust, setFineDust] = useState(null); // 미세먼지
@@ -83,10 +82,10 @@ function App() {
       <Today weather={weather} air={air} />
       <Toast weather={weather} air={air} />
       <Hourly hour={hour} />
-      <Container>
+      {/* <Container>
         <Air fineDust={fineDust} ultraFineDust={ultraFineDust} />
         <Weekly hour={hour} />
-      </Container>
+      </Container> */}
       <Footer />
     </ThemeProvider>
   );
