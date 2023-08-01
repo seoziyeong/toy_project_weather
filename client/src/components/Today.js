@@ -104,8 +104,8 @@ const WeatherImg = styled.img`
   }
 
   @media ${({ theme }) => theme.device.mobile} {
-    scale: 75%;
-    margin-right: 2%;
+    scale: 65%;
+    margin-left: -10%;
   }
   @media ${({ theme }) => theme.device.tablet} {
     scale: 100%;
@@ -132,11 +132,9 @@ const Info = styled.div`
 
 const TempInfo = styled.div`
   display: flex;
-  align-items: flex-end;
 
   div:first-child {
     font-weight: 200;
-    font-size: 64px;
     line-height: 64px;
   }
   div:last-child {
@@ -145,13 +143,25 @@ const TempInfo = styled.div`
   }
 
   @media ${({ theme }) => theme.device.mobile} {
+    flex-direction: column;
+    align-items: baseline;
     margin-bottom: 16px;
+
+    div: first-child {
+      font-size: 48px;
+    }
     div:last-child {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
   @media ${({ theme }) => theme.device.tablet} {
+    flex-direction: row;
+    align-items: flex-end;
     margin-bottom: 32px;
+
+    div: first-child {
+      font-size: 64px;
+    }
     div:last-child {
       font-size: 24px;
     }
