@@ -77,15 +77,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Test>asdf</Test>
       <Location weather={weather} />
       <Today weather={weather} air={air} />
       <Toast weather={weather} air={air} />
       <Hourly hour={hour} />
-      {/* <Container>
+      <Container>
         <Air fineDust={fineDust} ultraFineDust={ultraFineDust} />
         <Weekly hour={hour} />
-      </Container> */}
+      </Container>
       <Footer />
     </ThemeProvider>
   );
@@ -95,17 +94,12 @@ export default App;
 
 const Container = styled.div`
   display: flex;
-  gap: 24px;
-`;
 
-const Test = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
-    background-color: pink;
-  }
-  @media ${({ theme }) => theme.device.tablet} {
-    background-color: blue;
+    flex-direction: column;
   }
   @media ${({ theme }) => theme.device.desktop} {
-    background-color: red;
+    gap: 24px;
+    flex-direction: row;
   }
 `;

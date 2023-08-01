@@ -4,10 +4,6 @@ import React from "react";
 import { getIcon } from "../utils/getIcon";
 
 export const Weekly = ({ hour }) => {
-  // let day = new Date(2016, a-1, b);
-  // const WEEKDAY = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  // let week = WEEKDAY[day.getDay()];
-
   const groupBy = function (data, key) {
     return data.reduce(function (v, e) {
       var group = e[key];
@@ -121,20 +117,35 @@ const Contents = styled.div`
 `;
 
 const Box = styled.div`
-  width: 792px;
   height: 224px;
   background: #ffffff;
   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
   border-radius: 32px;
   padding: 40px;
-  position: relative;
+  overflow-y: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media ${({ theme }) => theme.device.desktop} {
+    width: 792px;
+  }
 `;
 
 const List = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   gap: 20px;
+  div:last-child {
+    padding-right: 36px;
+  }
+
+  @media ${({ theme }) => theme.device.mobile} {
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    justify-content: center;
+  }
 `;
 
 const Unit = styled.div`

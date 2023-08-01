@@ -72,6 +72,7 @@ export const Hourly = ({ hour }) => {
               );
             }
           })}
+          <div></div>
         </List>
       </Box>
     </Contents>
@@ -157,7 +158,7 @@ const List = styled.div`
 
   @media ${({ theme }) => theme.device.desktop} {
     transform: ${(props) =>
-      props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)"};
+      props.moveIndex === "1" ? "translateX(0%)" : "translateX(-10%)"};
   }
 `;
 

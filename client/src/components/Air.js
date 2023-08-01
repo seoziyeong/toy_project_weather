@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Division } from "./atom/Division";
-// import { GrayText } from "./atom/GrayText";
 
 export const Air = ({ fineDust, ultraFineDust }) => {
   // * 아이콘 매칭
@@ -63,23 +62,31 @@ export const Air = ({ fineDust, ultraFineDust }) => {
 
 const Contents = styled.div`
   margin-top: 32px;
-  margin-bottom: 32px;
   position: relative;
 
   h2 {
     margin-bottom: 16px;
   }
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-bottom: 0px;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    margin-bottom: 32px;
+  }
 `;
 
 const Box = styled.div`
-  width: 384px;
   height: 224px;
   background: #ffffff;
   box-shadow: 0px 0px 30px rgba(12, 12, 14, 0.03);
   border-radius: 32px;
   padding: 40px;
-  overflow: hidden;
   text-align: center;
+  @media ${({ theme }) => theme.device.desktop} {
+    width: 384px;
+  }
 `;
 
 const Emoji = styled.div`
