@@ -14,7 +14,7 @@ export const Toast = ({ weather, air }) => {
     }
   }, [weather, air]);
 
-  const [status, setStatus] = useState("dust");
+  const [status, setStatus] = useState("");
 
   function handleText() {
     if (status === "dust") {
