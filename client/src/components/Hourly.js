@@ -20,14 +20,19 @@ export const Hourly = ({ hour }) => {
   // * 현재 시간 텍스트 추출
   function getDayTime(hour) {
     let daytime;
-    if (hour.sys.pod === "d") daytime = "오전";
-    else if (hour.sys.pod === "n") daytime = "오후";
     let dtText = hour.dt_txt.split(" ")[1].slice(0, 2);
+
+    if (dtText === "21") daytime = "오후";
+    else if (hour.sys.pod === "d") daytime = "오전";
+    else if (hour.sys.pod === "n") daytime = "오후";
+
     if (dtText > 12) {
       dtText -= 12;
       dtText = "0" + dtText;
     }
     const result = `${daytime} ${dtText}시`;
+
+    console.log();
     return result;
   }
 
