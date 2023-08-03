@@ -6,15 +6,9 @@ export const Footer = () => {
 
 const Copyright = styled.div`
   margin-top: 16px;
+  margin-bottom: 48px;
   font-size: 13px;
   line-height: 14px;
   color: #898a8f;
   text-align: center;
-
-  @media ${({ theme }) => theme.device.mobile} {
-    margin-bottom: 144px;
-  }
-  @media ${({ theme }) => theme.device.tablet} {
-    margin-bottom: 48px;
-  }
 `;

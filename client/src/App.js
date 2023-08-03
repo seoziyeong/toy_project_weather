@@ -1,20 +1,21 @@
 import "./App.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import styled, { ThemeProvider } from "styled-components";
+import { weatherApi } from "./api";
+import theme from "./utils/theme";
+import { getEndPoint } from "./utils/getEndPoint";
+import { getHourList } from "./utils/getHourList";
+import { getFineDustCondition } from "./utils/getFineDustCondition";
 import { Location } from "./components/Location";
 import { Today } from "./components/Today";
 import { Hourly } from "./components/Hourly";
 import { Air } from "./components/Air";
-import styled, { ThemeProvider } from "styled-components";
 import { Weekly } from "./components/Weekly";
 import { Footer } from "./components/Footer";
 import { Toast } from "./components/Toast";
-import theme from "./utils/theme";
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL;
-  const API_KEY = process.env.REACT_APP_API_KEY;
-
   const [weather, setWeather] = useState(null); // 현재 날씨
   const [hour, setHour] = useState([]); // 시간대별 날씨
   const [fineDust, setFineDust] = useState(null); // 미세먼지
@@ -26,44 +27,23 @@ function App() {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
-      Promise.all(
-        [
-          `${API_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
-          `${API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`,
-          `${API_URL}/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
-        ].map((url) => axios.get(url))
-      ).then(
-        axios.spread((res1, res2, res3) => {
-          // res1 : 현재 날씨정보
-          setWeather(res1.data);
-
-          // res2 : 시간대별 날씨
-          const WEEKDAY = [
-            "일요일",
-            "월요일",
-            "화요일",
-            "수요일",
-            "목요일",
-            "금요일",
-            "토요일",
-          ];
-          let dayHour = [...res2.data.list];
-          for (let row of dayHour) {
-            row["day"] = WEEKDAY[new Date(row.dt_txt.split(" ")[0]).getDay()];
-          }
-
-          setHour(dayHour);
-
-          // res3 : 미세먼지 정보
-          setFineDust(res3.data.list[0].components.pm10);
-          setUltraFineDust(res3.data.list[0].components.pm2_5);
-          if (res3.data.list[0].components.pm10 <= 30) setAir("좋음");
-          else if (res3.data.list[0].components.pm10 <= 80) setAir("보통");
-          else if (res3.data.list[0].components.pm10 <= 150) setAir("나쁨");
-          else if (res3.data.list[0].components.pm10 >= 151)
-            setAir("매우 나쁨");
-        })
-      );
+      axios
+        .all([
+          weatherApi.getCurrentRequest(getEndPoint("current", lat, lon)),
+          weatherApi.getHourlyRequest(getEndPoint("hourly", lat, lon)),
+          weatherApi.getAirRequest(getEndPoint("air", lat, lon)),
+        ])
+        .then(
+          axios.spread((current, hourly, air) => {
+            setWeather(current.data);
+            setHour(getHourList(hourly));
+            setFineDust(air.data.list[0].components.pm10);
+            setUltraFineDust(air.data.list[0].components.pm2_5);
+            setAir(
+              getFineDustCondition("fineDust", air.data.list[0].components.pm10)
+            );
+          })
+        );
     }
 
     function onGeoError() {

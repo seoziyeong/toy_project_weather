@@ -30,9 +30,8 @@ export const Hourly = ({ hour }) => {
       dtText -= 12;
       dtText = "0" + dtText;
     }
-    const result = `${daytime} ${dtText}시`;
 
-    console.log();
+    const result = `${daytime} ${dtText}시`;
     return result;
   }
 

@@ -1,4 +1,4 @@
-export function getIcon(icon) {
+export const getIcon = (icon) => {
   if (icon === "01d") return "☀";
   else if (icon === "02d") return "🌤";
   else if (icon === "10d") return "🌦";
@@ -10,4 +10,4 @@ export function getIcon(icon) {
   else if (icon === "09d" || icon === "09n") return "🌧"; // 소나기
   else if (icon === "13d" || icon === "13n") return "❄️";
   else if (icon === "50d" || icon === "50n") return "🌫"; // 안개
-}
+};

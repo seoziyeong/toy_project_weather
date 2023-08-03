@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { WearedCard } from "./WearedCard";
+import { getWeatherDescription } from "../utils/getWeatherDescription";
 
 export const Today = ({ weather, air }) => {
   // * 주/야 설정
@@ -11,28 +12,6 @@ export const Today = ({ weather, air }) => {
     }
   }, [weather, air]);
 
-  // * 날씨 정보
-  function showDescription(weather) {
-    const description = weather.weather[0].icon.substr(0, 2);
-    if (description === "01") {
-      return "맑음";
-    } else if (description === "02") {
-      return "구름 조금";
-    } else if (description === "03" || description === "04") {
-      return "구름 많음";
-    } else if (description === "09") {
-      return "소나기";
-    } else if (description === "10") {
-      return "비";
-    } else if (description === "11") {
-      return "뇌우";
-    } else if (description === "13") {
-      return "눈";
-    } else if (description === "50") {
-      return "안개";
-    }
-  }
-
   return (
     <Banner isDay={isDay}>
       <Weather>
@@ -41,7 +20,10 @@ export const Today = ({ weather, air }) => {
           <p>현재</p>
           <TempInfo>
             <div>{weather && Math.round(weather.main.temp)}˚</div>
-            <div>{weather && showDescription(weather)}</div>
+            <div>
+              {weather &&
+                getWeatherDescription(weather.weather[0].icon.substr(0, 2))}
+            </div>
           </TempInfo>
           <p>
             <img src="./img/icon_humidity.png" alt="humidity" />
