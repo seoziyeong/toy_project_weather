@@ -1,4 +1,3 @@
-import "./App.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
@@ -39,9 +38,7 @@ function App() {
             setHour(getHourList(hourly));
             setFineDust(air.data.list[0].components.pm10);
             setUltraFineDust(air.data.list[0].components.pm2_5);
-            setAir(
-              getFineDustCondition("fineDust", air.data.list[0].components.pm10)
-            );
+            setAir(getFineDustCondition("fineDust", air.data.list[0].components.pm10));
           })
         );
     }
