@@ -1,37 +1,18 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Division } from "./atom/Division";
+import { getFineDustCondition } from "../utils/getFineDustCondition";
+import { getFineDustIcon } from "../utils/getFineDustIcon";
 
 export const Air = ({ fineDust, ultraFineDust }) => {
-  // * 아이콘 매칭
-  function getIcon(air) {
-    if (air === "좋음") return "😄";
-    else if (air === "보통") return "🙂";
-    else if (air === "나쁨") return "😷";
-    else if (air === "매우 나쁨") return "👿";
-  }
-
-  // * 미세먼지, 초미세먼지
   const [fineDustCondition, setFineDustCondition] = useState("좋음");
   const [ultraFineDustCondition, setUltraFineDustCondition] = useState("좋음");
 
-  function handleFineDustCondition(fineDust) {
-    if (fineDust <= 30) setFineDustCondition("좋음");
-    else if (fineDust <= 80) setFineDustCondition("보통");
-    else if (fineDust <= 150) setFineDustCondition("나쁨");
-    else if (fineDust >= 151) setFineDustCondition("매우 나쁨");
-  }
-
-  function handleUltraFineDustCondition(ultraFineDust) {
-    if (ultraFineDust <= 15) setUltraFineDustCondition("좋음");
-    else if (ultraFineDust <= 35) setUltraFineDustCondition("보통");
-    else if (ultraFineDust <= 75) setUltraFineDustCondition("나쁨");
-    else if (ultraFineDust >= 76) setUltraFineDustCondition("매우 나쁨");
-  }
-
   useEffect(() => {
-    handleFineDustCondition(fineDust);
-    handleUltraFineDustCondition(ultraFineDust);
+    setFineDustCondition(getFineDustCondition("fineDust", fineDust));
+    setUltraFineDustCondition(
+      getFineDustCondition("ultraFineDust", ultraFineDust)
+    );
   }, [fineDust, ultraFineDust]);
 
   return (
@@ -40,14 +21,14 @@ export const Air = ({ fineDust, ultraFineDust }) => {
       <Box>
         <InfoContainer>
           <Info>
-            <Emoji>{getIcon(fineDustCondition)}</Emoji>
+            <Emoji>{getFineDustIcon(fineDustCondition)}</Emoji>
             <GrayText>미세먼지</GrayText>
             <Badge condition={fineDustCondition}>{fineDustCondition}</Badge>
             <p>{fineDust} ㎍/m³</p>
           </Info>
           <Division />
           <Info>
-            <Emoji>{getIcon(ultraFineDustCondition)}</Emoji>
+            <Emoji>{getFineDustIcon(ultraFineDustCondition)}</Emoji>
             <GrayText>초미세먼지</GrayText>
             <Badge condition={ultraFineDustCondition}>
               {ultraFineDustCondition}

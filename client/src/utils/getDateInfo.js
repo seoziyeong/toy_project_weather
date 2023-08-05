@@ -1,4 +1,3 @@
-// 오늘 날짜 / 시간
 export const getDateInfo = () => {
   const today = new Date();
   const month = today.getMonth() + 1;

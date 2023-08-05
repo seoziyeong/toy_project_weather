@@ -1,66 +1,17 @@
+import React from "react";
 import styled from "styled-components";
 import { GrayText } from "./atom/GrayText";
-import React from "react";
-import { getIcon } from "../utils/getIcon";
+import { getDayOfTheWeekGroup } from "../utils/getDayOfTheWeekGroup";
+import { getWeeklyData } from "../utils/getWeeklyData";
+import { getMaxAndMinTempIcon } from "../utils/getMaxAndMinTempIcon";
+import { getMaxAndMinTemp } from "../utils/getMaxAndMinTemp";
+import { getMaxHumidity } from "../utils/getMaxHuminity";
 
 export const Weekly = ({ hour }) => {
-  const groupBy = function (data, key) {
-    return data.reduce(function (v, e) {
-      var group = e[key];
-
-      if (v[group] === undefined) {
-        v[group] = [];
-      }
-
-      v[group].push(e);
-      return v;
-    }, {});
-  };
-
-  const groupByData = groupBy(hour, "day");
+  const groupByData = getDayOfTheWeekGroup(hour, "day");
   const keyList = Object.keys(groupByData);
 
-  let allTemp = [];
-  let allHumidity = [];
-  let allIcons = [];
-  keyList.map((k, i) => {
-    let tempList = [];
-    let humidityList = [];
-    let iconList = [];
-    groupByData[k].map((v, i) => {
-      tempList.push(Math.round(v.main.temp));
-      humidityList.push(v.main.humidity);
-      iconList.push(v.weather[0].icon);
-    });
-    allTemp.push(tempList);
-    allHumidity.push(humidityList);
-    allIcons.push(iconList);
-  });
-
-  function getMaxTemp(temp) {
-    const max = Math.max(...temp);
-    temp.indexOf(max, 0);
-    return max;
-  }
-  function getMinTemp(temp) {
-    const min = Math.min(...temp);
-    return min;
-  }
-
-  function getMaxTempIcon(temp, max, icons) {
-    const num = temp.indexOf(max, 0);
-    return getIcon(icons[num]);
-  }
-
-  function getMinTempIcon(temp, min, icons) {
-    const num = temp.indexOf(min, 0);
-    return getIcon(icons[num]);
-  }
-
-  function getMaxHuminity(humidity) {
-    const max = Math.max(...humidity);
-    return max;
-  }
+  const { allTemp, allIcons, allHumidity } = getWeeklyData(groupByData, keyList);
 
   return (
     <Contents>
@@ -74,27 +25,19 @@ export const Weekly = ({ hour }) => {
                   <GrayText>{v}</GrayText>
                   <p>
                     <span>
-                      {getMaxTempIcon(
-                        allTemp[i],
-                        getMaxTemp(allTemp[i]),
-                        allIcons[i]
-                      )}
+                      {getMaxAndMinTempIcon("max", allTemp[i], getMaxAndMinTemp(allTemp[i]).max, allIcons[i])}
                     </span>
                     <span>
-                      {getMinTempIcon(
-                        allTemp[i],
-                        getMinTemp(allTemp[i]),
-                        allIcons[i]
-                      )}
+                      {getMaxAndMinTempIcon("min", allTemp[i], getMaxAndMinTemp(allTemp[i]).min, allIcons[i])}
                     </span>
                   </p>
                   <p>
-                    <span>{getMaxTemp(allTemp[i])}˚</span>
-                    <span>{getMinTemp(allTemp[i])}˚</span>
+                    <span>{getMaxAndMinTemp(allTemp[i]).max}˚</span>
+                    <span>{getMaxAndMinTemp(allTemp[i]).min}˚</span>
                   </p>
                   <p>
                     <img src="./img/icon_humidity2.png" alt="" />
-                    {getMaxHuminity(allHumidity[i])}%
+                    {getMaxHumidity(allHumidity[i])}
                   </p>
                 </Unit>
               </React.Fragment>
@@ -137,11 +80,17 @@ const List = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  div:last-child {
-    padding-right: 36px;
-  }
 
   @media ${({ theme }) => theme.device.mobile} {
+    justify-content: space-between;
+    div:last-child {
+      padding-right: 36px;
+    }
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    div:last-child {
+      padding-right: 0px;
+    }
   }
   @media ${({ theme }) => theme.device.desktop} {
     justify-content: center;

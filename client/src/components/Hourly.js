@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
 import { getIcon } from "../utils/getIcon";
+import { getHourTime } from "../utils/getHourTime";
 
 export const Hourly = ({ hour }) => {
   const hourData = hour.slice(0, 14);
@@ -17,24 +18,6 @@ export const Hourly = ({ hour }) => {
     setMoveIndex("2");
   };
 
-  // * 현재 시간 텍스트 추출
-  function getDayTime(hour) {
-    let daytime;
-    let dtText = hour.dt_txt.split(" ")[1].slice(0, 2);
-
-    if (dtText === "21") daytime = "오후";
-    else if (hour.sys.pod === "d") daytime = "오전";
-    else if (hour.sys.pod === "n") daytime = "오후";
-
-    if (dtText > 12) {
-      dtText -= 12;
-      dtText = "0" + dtText;
-    }
-
-    const result = `${daytime} ${dtText}시`;
-    return result;
-  }
-
   return (
     <Contents>
       <SlideButton onClick={leftMove}>
@@ -46,17 +29,17 @@ export const Hourly = ({ hour }) => {
       <h2>시간대별 날씨</h2>
       <Box>
         <List moveIndex={moveIndex}>
-          {hourData.map((v, i) => {
-            if (v.dt_txt.split(" ")[1].slice(0, 2) === "21") {
+          {hourData.map((hour, index) => {
+            if (hour.dt_txt.split(" ")[1].slice(0, 2) === "21") {
               return (
-                <React.Fragment key={i}>
+                <React.Fragment key={index}>
                   <Unit>
-                    <GrayText>{getDayTime(v)}</GrayText>
-                    <p>{getIcon(v.weather[0].icon)}</p>
-                    <p>{Math.round(v.main.temp)}˚</p>
+                    <GrayText>{getHourTime(hour)}</GrayText>
+                    <p>{getIcon(hour.weather[0].icon)}</p>
+                    <p>{Math.round(hour.main.temp)}˚</p>
                     <p>
                       <img src="./img/icon_humidity2.png" alt="" />
-                      {v.main.humidity}%
+                      {hour.main.humidity}%
                     </p>
                   </Unit>
                   <Division />
@@ -64,13 +47,13 @@ export const Hourly = ({ hour }) => {
               );
             } else {
               return (
-                <Unit key={i}>
-                  <GrayText>{getDayTime(v)}</GrayText>
-                  <p>{getIcon(v.weather[0].icon)}</p>
-                  <p>{Math.round(v.main.temp)}˚</p>
+                <Unit key={index}>
+                  <GrayText>{getHourTime(hour)}</GrayText>
+                  <p>{getIcon(hour.weather[0].icon)}</p>
+                  <p>{Math.round(hour.main.temp)}˚</p>
                   <p>
                     <img src="./img/icon_humidity2.png" alt="" />
-                    {v.main.humidity}%
+                    {hour.main.humidity}%
                   </p>
                 </Unit>
               );

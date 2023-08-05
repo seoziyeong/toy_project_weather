@@ -17,10 +17,10 @@ export const WearedCard = ({ weather }) => {
       <GrayText>오늘은</GrayText>
       <Title>{getAdvice(weather)}</Title>
       <Clothes>
-        {clothesList.map((v, i) => {
+        {clothesList.map((clothes, index) => {
           return (
-            <Item key={i} item={v}>
-              {v}
+            <Item key={index} item={clothes}>
+              {clothes}
             </Item>
           );
         })}
