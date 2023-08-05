@@ -13,8 +13,11 @@ import { Air } from "./components/Air";
 import { Weekly } from "./components/Weekly";
 import { Footer } from "./components/Footer";
 import { Toast } from "./components/Toast";
+import { Loading } from "./components/Loading";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
+
   const [weather, setWeather] = useState(null); // 현재 날씨
   const [hour, setHour] = useState([]); // 시간대별 날씨
   const [fineDust, setFineDust] = useState(null); // 미세먼지
@@ -39,8 +42,9 @@ function App() {
             setFineDust(air.data.list[0].components.pm10);
             setUltraFineDust(air.data.list[0].components.pm2_5);
             setAir(getFineDustCondition("fineDust", air.data.list[0].components.pm10));
+            setIsLoading(false) // loading ui 해제
           })
-        );
+          )
     }
 
     function onGeoError() {
@@ -51,6 +55,14 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Loading />
+      </ThemeProvider>
+    )
+  }
 
   return (
     <ThemeProvider theme={theme}>
