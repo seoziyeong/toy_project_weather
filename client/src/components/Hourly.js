@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
-import { getIcon } from "../utils/getIcon";
+import { getWeatherIcon } from "../utils/getWeatherIcon";
 import { getHourTime } from "../utils/getHourTime";
 
 export const Hourly = ({ hour }) => {
@@ -35,7 +35,7 @@ export const Hourly = ({ hour }) => {
                 <React.Fragment key={index}>
                   <Unit>
                     <GrayText>{getHourTime(hour)}</GrayText>
-                    <p>{getIcon(hour.weather[0].icon)}</p>
+                    <p>{getWeatherIcon(hour.weather[0].icon)}</p>
                     <p>{Math.round(hour.main.temp)}˚</p>
                     <p>
                       <img src="./img/icon_humidity2.png" alt="" />
@@ -49,7 +49,7 @@ export const Hourly = ({ hour }) => {
               return (
                 <Unit key={index}>
                   <GrayText>{getHourTime(hour)}</GrayText>
-                  <p>{getIcon(hour.weather[0].icon)}</p>
+                  <p>{getWeatherIcon(hour.weather[0].icon)}</p>
                   <p>{Math.round(hour.main.temp)}˚</p>
                   <p>
                     <img src="./img/icon_humidity2.png" alt="" />
@@ -90,8 +90,7 @@ const SlideButton = styled.div`
   }
   @media ${({ theme }) => theme.device.desktop} {
     display: block;
-    transform: ${(props) =>
-      props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)"};
+    transform: ${(props) => (props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)")};
   }
 `;
 
@@ -144,8 +143,7 @@ const List = styled.div`
   }
 
   @media ${({ theme }) => theme.device.desktop} {
-    transform: ${(props) =>
-      props.moveIndex === "1" ? "translateX(0%)" : "translateX(-10%)"};
+    transform: ${(props) => (props.moveIndex === "1" ? "translateX(0%)" : "translateX(-10%)")};
   }
 `;
 
