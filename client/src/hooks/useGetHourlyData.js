@@ -11,7 +11,7 @@ function useGetHourlyData() {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
-      const promise = weatherApi.getHourlyRequest(getEndPoint("hourly", lat, lon)).then((res) => res.data);
+      const promise = weatherApi.getHourlyRequest(getEndPoint("hourly", lat, lon)).then((res) => res.data.list);
 
       setResource(wrapPromise(promise));
     }

@@ -11,7 +11,7 @@ function useGetAirData() {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
-      const promise = weatherApi.getAirRequest(getEndPoint("air", lat, lon)).then((res) => res.data);
+      const promise = weatherApi.getAirRequest(getEndPoint("air", lat, lon)).then((res) => res.data.list[0].components);
 
       setResource(wrapPromise(promise));
     }

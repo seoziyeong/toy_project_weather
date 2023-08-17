@@ -1,51 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GrayText } from "./atom/GrayText";
+import useGetHourlyData from "../hooks/useGetHourlyData";
 import { getDayOfTheWeekGroup } from "../utils/getDayOfTheWeekGroup";
 import { getWeeklyData } from "../utils/getWeeklyData";
 import { getMaxAndMinTempIcon } from "../utils/getMaxAndMinTempIcon";
 import { getMaxAndMinTemp } from "../utils/getMaxAndMinTemp";
 import { getMaxHumidity } from "../utils/getMaxHuminity";
+import { getHourList } from "../utils/getHourList";
 
-export const Weekly = ({ hour }) => {
-  const groupByData = getDayOfTheWeekGroup(hour, "day");
-  const keyList = Object.keys(groupByData);
+export const Weekly = () => {
+  const hourlyData = useGetHourlyData();
+  const [keyList, setKeyList] = useState([]);
+  const [allDetails, setAllDetails] = useState({});
 
-  const { allTemp, allIcons, allHumidity } = getWeeklyData(groupByData, keyList);
+  useEffect(() => {
+    if (hourlyData) {
+      const addDayData = getHourList(hourlyData);
+      const groupByData = getDayOfTheWeekGroup(addDayData, "day");
+      const tempKeyList = Object.keys(groupByData);
+      setKeyList(tempKeyList);
+      setAllDetails(getWeeklyData(groupByData, tempKeyList));
+    }
+  }, [hourlyData]);
 
   return (
-    <Contents>
-      <h2>주간 날씨</h2>
-      <Box>
-        <List>
-          {keyList.map((v, i) => {
-            return (
-              <React.Fragment key={i}>
-                <Unit>
-                  <GrayText>{v}</GrayText>
-                  <p>
-                    <span>
-                      {getMaxAndMinTempIcon("max", allTemp[i], getMaxAndMinTemp(allTemp[i]).max, allIcons[i])}
-                    </span>
-                    <span>
-                      {getMaxAndMinTempIcon("min", allTemp[i], getMaxAndMinTemp(allTemp[i]).min, allIcons[i])}
-                    </span>
-                  </p>
-                  <p>
-                    <span>{getMaxAndMinTemp(allTemp[i]).max}˚</span>
-                    <span>{getMaxAndMinTemp(allTemp[i]).min}˚</span>
-                  </p>
-                  <p>
-                    <img src="./img/icon_humidity2.png" alt="" />
-                    {getMaxHumidity(allHumidity[i])}
-                  </p>
-                </Unit>
-              </React.Fragment>
-            );
-          })}
-        </List>
-      </Box>
-    </Contents>
+    <>
+      {hourlyData && (
+        <Contents>
+          <h2>주간 날씨</h2>
+          <Box>
+            <List>
+              {keyList.map((v, i) => {
+                return (
+                  <React.Fragment key={i}>
+                    <Unit>
+                      <GrayText>{v}</GrayText>
+                      <p>
+                        <span>
+                          {getMaxAndMinTempIcon(
+                            "max",
+                            allDetails.temps[i],
+                            getMaxAndMinTemp(allDetails.temps[i]).max,
+                            allDetails.icons[i]
+                          )}
+                        </span>
+                        <span>
+                          {getMaxAndMinTempIcon(
+                            "min",
+                            allDetails.temps[i],
+                            getMaxAndMinTemp(allDetails.temps[i]).min,
+                            allDetails.icons[i]
+                          )}
+                        </span>
+                      </p>
+                      <p>
+                        <span>{getMaxAndMinTemp(allDetails.temps[i]).max}˚</span>
+                        <span>{getMaxAndMinTemp(allDetails.temps[i]).min}˚</span>
+                      </p>
+                      <p>
+                        <img src="./img/icon_humidity2.png" alt="" />
+                        {getMaxHumidity(allDetails.humiditys[i])}
+                      </p>
+                    </Unit>
+                  </React.Fragment>
+                );
+              })}
+            </List>
+          </Box>
+        </Contents>
+      )}
+    </>
   );
 };
 

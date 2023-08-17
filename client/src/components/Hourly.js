@@ -1,68 +1,73 @@
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import React, { useState } from "react";
 import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
+import useGetHourlyData from "../hooks/useGetHourlyData";
 import { getWeatherIcon } from "../utils/getWeatherIcon";
 import { getHourTime } from "../utils/getHourTime";
 
-export const Hourly = ({ hour }) => {
-  const hourData = hour.slice(0, 14);
+export const Hourly = () => {
+  const hourlyData = useGetHourlyData();
+  const [hour, setHour] = useState([]);
+
+  useEffect(() => {
+    if (hourlyData) setHour(hourlyData.slice(0, 14));
+  }, [hourlyData]);
 
   // * desktop 슬라이드
   const [moveIndex, setMoveIndex] = useState("1");
-
-  const leftMove = () => {
-    setMoveIndex("1");
-  };
-  const rightMove = () => {
-    setMoveIndex("2");
-  };
+  const leftMove = () => setMoveIndex("1");
+  const rightMove = () => setMoveIndex("2");
 
   return (
-    <Contents>
-      <SlideButton onClick={leftMove}>
-        <img src="./img/icon_prev.png" alt="" />
-      </SlideButton>
-      <SlideButton onClick={rightMove}>
-        <img src="./img/icon_next.png" alt="" />
-      </SlideButton>
-      <h2>시간대별 날씨</h2>
-      <Box>
-        <List moveIndex={moveIndex}>
-          {hourData.map((hour, index) => {
-            if (hour.dt_txt.split(" ")[1].slice(0, 2) === "21") {
-              return (
-                <React.Fragment key={index}>
-                  <Unit>
-                    <GrayText>{getHourTime(hour)}</GrayText>
-                    <p>{getWeatherIcon(hour.weather[0].icon)}</p>
-                    <p>{Math.round(hour.main.temp)}˚</p>
-                    <p>
-                      <img src="./img/icon_humidity2.png" alt="" />
-                      {hour.main.humidity}%
-                    </p>
-                  </Unit>
-                  <Division />
-                </React.Fragment>
-              );
-            } else {
-              return (
-                <Unit key={index}>
-                  <GrayText>{getHourTime(hour)}</GrayText>
-                  <p>{getWeatherIcon(hour.weather[0].icon)}</p>
-                  <p>{Math.round(hour.main.temp)}˚</p>
-                  <p>
-                    <img src="./img/icon_humidity2.png" alt="" />
-                    {hour.main.humidity}%
-                  </p>
-                </Unit>
-              );
-            }
-          })}
-          <div></div>
-        </List>
-      </Box>
-    </Contents>
+    <>
+      {hourlyData && (
+        <Contents>
+          <SlideButton onClick={leftMove}>
+            <img src="./img/icon_prev.png" alt="" />
+          </SlideButton>
+          <SlideButton onClick={rightMove}>
+            <img src="./img/icon_next.png" alt="" />
+          </SlideButton>
+          <h2>시간대별 날씨</h2>
+          <Box>
+            <List moveIndex={moveIndex}>
+              {hour.map((hour, index) => {
+                if (hour.dt_txt.split(" ")[1].slice(0, 2) === "21") {
+                  return (
+                    <React.Fragment key={index}>
+                      <Unit>
+                        <GrayText>{getHourTime(hour)}</GrayText>
+                        <p>{getWeatherIcon(hour.weather[0].icon)}</p>
+                        <p>{Math.round(hour.main.temp)}˚</p>
+                        <p>
+                          <img src="./img/icon_humidity2.png" alt="" />
+                          {hour.main.humidity}%
+                        </p>
+                      </Unit>
+                      <Division />
+                    </React.Fragment>
+                  );
+                } else {
+                  return (
+                    <Unit key={index}>
+                      <GrayText>{getHourTime(hour)}</GrayText>
+                      <p>{getWeatherIcon(hour.weather[0].icon)}</p>
+                      <p>{Math.round(hour.main.temp)}˚</p>
+                      <p>
+                        <img src="./img/icon_humidity2.png" alt="" />
+                        {hour.main.humidity}%
+                      </p>
+                    </Unit>
+                  );
+                }
+              })}
+              <div></div>
+            </List>
+          </Box>
+        </Contents>
+      )}
+    </>
   );
 };
 

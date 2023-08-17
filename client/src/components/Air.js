@@ -1,43 +1,37 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 import { Division } from "./atom/Division";
+import useGetAirData from "../hooks/useGetAirData";
 import { getFineDustCondition } from "../utils/getFineDustCondition";
 import { getFineDustIcon } from "../utils/getFineDustIcon";
 
-export const Air = ({ fineDust, ultraFineDust }) => {
-  const [fineDustCondition, setFineDustCondition] = useState("좋음");
-  const [ultraFineDustCondition, setUltraFineDustCondition] = useState("좋음");
-
-  useEffect(() => {
-    setFineDustCondition(getFineDustCondition("fineDust", fineDust));
-    setUltraFineDustCondition(
-      getFineDustCondition("ultraFineDust", ultraFineDust)
-    );
-  }, [fineDust, ultraFineDust]);
+export const Air = () => {
+  const airData = useGetAirData();
 
   return (
-    <Contents>
-      <h2>대기정보</h2>
-      <Box>
-        <InfoContainer>
-          <Info>
-            <Emoji>{getFineDustIcon(fineDustCondition)}</Emoji>
-            <GrayText>미세먼지</GrayText>
-            <Badge condition={fineDustCondition}>{fineDustCondition}</Badge>
-            <p>{fineDust} ㎍/m³</p>
-          </Info>
-          <Division />
-          <Info>
-            <Emoji>{getFineDustIcon(ultraFineDustCondition)}</Emoji>
-            <GrayText>초미세먼지</GrayText>
-            <Badge condition={ultraFineDustCondition}>
-              {ultraFineDustCondition}
-            </Badge>
-            <p>{ultraFineDust} ㎍/m³</p>
-          </Info>
-        </InfoContainer>
-      </Box>
-    </Contents>
+    <>
+      {airData && (
+        <Contents>
+          <h2>대기정보</h2>
+          <Box>
+            <InfoContainer>
+              <Info>
+                <Emoji>{getFineDustIcon(getFineDustCondition("fineDust", airData.pm10))}</Emoji>
+                <GrayText>미세먼지</GrayText>
+                <Badge condition={airData.pm10}>{getFineDustCondition("fineDust", airData.pm10)}</Badge>
+                <p>{airData.pm10} ㎍/m³</p>
+              </Info>
+              <Division />
+              <Info>
+                <Emoji>{getFineDustIcon(getFineDustCondition("fineDust", airData.pm2_5))}</Emoji>
+                <GrayText>초미세먼지</GrayText>
+                <Badge condition={airData.pm2_5}>{getFineDustCondition("fineDust", airData.pm2_5)}</Badge>
+                <p>{airData.pm2_5} ㎍/m³</p>
+              </Info>
+            </InfoContainer>
+          </Box>
+        </Contents>
+      )}
+    </>
   );
 };
 
@@ -50,8 +44,6 @@ const Contents = styled.div`
   }
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 0px;
-  }
-  @media ${({ theme }) => theme.device.tablet} {
   }
   @media ${({ theme }) => theme.device.desktop} {
     margin-bottom: 32px;
@@ -110,13 +102,7 @@ const Badge = styled.span`
   border-radius: 16px;
 
   color: ${({ condition }) =>
-    condition === "좋음"
-      ? "#55C3E4"
-      : condition === "보통"
-      ? "#5FC869"
-      : condition === "나쁨"
-      ? "#EFA007"
-      : "#E63C45"};
+    condition === "좋음" ? "#55C3E4" : condition === "보통" ? "#5FC869" : condition === "나쁨" ? "#EFA007" : "#E63C45"};
 `;
 
 const InfoContainer = styled.div`

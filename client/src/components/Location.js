@@ -1,14 +1,21 @@
 import styled from "styled-components";
 import { getDateInfo } from "../utils/getDateInfo";
+import useGetCurrentData from "../hooks/useGetCurrentData";
 
-export const Location = ({ weather }) => {
+export const Location = () => {
+  const currentData = useGetCurrentData();
+
   return (
     <Header>
-      <City>
-        <img src={`./img/icon_location.png`} alt="location" />
-        <h4>{weather && weather.name ? weather.name : ""}</h4>
-      </City>
-      <h4>{getDateInfo()}</h4>
+      {currentData && (
+        <>
+          <City>
+            <img src={`./img/icon_location.png`} alt="location" />
+            <h4>{currentData.name ? currentData.name : ""}</h4>
+          </City>
+          <h4>{getDateInfo()}</h4>
+        </>
+      )}
     </Header>
   );
 };

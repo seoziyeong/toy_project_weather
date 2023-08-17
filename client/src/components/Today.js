@@ -1,40 +1,51 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import { WearedCard } from "./WearedCard";
 import { WeatherImg } from "./atom/WeatherImg";
+import useGetCurrentData from "../hooks/useGetCurrentData";
+import useGetAirData from "../hooks/useGetAirData";
 import { getWeatherDescription } from "../utils/getWeatherDescription";
+import { getFineDustCondition } from "../utils/getFineDustCondition";
 
-export const Today = ({ weather, air }) => {
-  // * 주/야 설정
-  const [isDay, setIsDay] = useState(true);
-  useEffect(() => {
-    if (weather && weather.weather[0].icon.includes("n")) {
-      setIsDay(false);
+export const Today = () => {
+  const currentData = useGetCurrentData();
+  const airData = useGetAirData();
+
+  // 주/야 설정
+  const isDay = () => {
+    if (currentData && currentData.weather[0].icon.includes("n")) {
+      return false;
     }
-  }, [weather, air]);
+    return true;
+  };
 
   return (
-    <Banner isDay={isDay}>
-      <Weather>
-        <WeatherImgBox>{weather && <WeatherImg src={`./img/${weather.weather[0].icon}.png`} />}</WeatherImgBox>
-        <Info isDay={isDay}>
-          <p>현재</p>
-          <TempInfo>
-            <div>{weather && Math.round(weather.main.temp)}˚</div>
-            <div>{weather && getWeatherDescription(weather.weather[0].icon.substr(0, 2))}</div>
-          </TempInfo>
-          <p>
-            <img src="./img/icon_humidity.png" alt="humidity" />
-            습도 {weather && weather.main.humidity} %
-          </p>
-          <p>
-            <img src="./img/icon_air.png" alt="air" />
-            미세먼지 {air}
-          </p>
-        </Info>
-      </Weather>
-      <WearedCard weather={weather && Math.round(weather.main.temp)}></WearedCard>
-    </Banner>
+    <>
+      {currentData && airData && (
+        <Banner isDay={isDay}>
+          <Weather>
+            <WeatherImgBox>
+              <WeatherImg src={`./img/${currentData.weather[0].icon}.png`} />
+            </WeatherImgBox>
+            <Info isDay={isDay}>
+              <p>현재</p>
+              <TempInfo>
+                <div>{Math.round(currentData.main.temp)}˚</div>
+                <div>{getWeatherDescription(currentData.weather[0].icon.substr(0, 2))}</div>
+              </TempInfo>
+              <p>
+                <img src="./img/icon_humidity.png" alt="humidity" />
+                습도 {currentData.main.humidity} %
+              </p>
+              <p>
+                <img src="./img/icon_air.png" alt="air" />
+                미세먼지 {getFineDustCondition("fineDust", airData.pm10)}
+              </p>
+            </Info>
+          </Weather>
+          <WearedCard temp={Math.round(currentData.main.temp)}></WearedCard>
+        </Banner>
+      )}
+    </>
   );
 };
 
@@ -45,7 +56,9 @@ const Banner = styled.div`
   height: 320px;
   border-radius: 32px;
   background: ${({ isDay }) =>
-    isDay ? "linear-gradient(180deg, #ffee58 0%, #ffdc5f 100%)" : "linear-gradient(180deg, #334981 0%, #452968 100%)"};
+    isDay()
+      ? "linear-gradient(180deg, #ffee58 0%, #ffdc5f 100%)"
+      : "linear-gradient(180deg, #334981 0%, #452968 100%)"};
   box-shadow: 0px 0px 30px rgba(228, 229, 231, 0.1);
 `;
 
@@ -79,29 +92,8 @@ const WeatherImgBox = styled.div`
   }
 `;
 
-// const WeatherImg = styled.img`
-//   animation: up-down 1s infinite ease-in-out alternate;
-//   @keyframes up-down {
-//     from {
-//       transform: translatey(0px);
-//     }
-//     to {
-//       transform: translatey(-12px);
-//     }
-//   }
-
-//   @media ${({ theme }) => theme.device.mobile} {
-//     scale: 65%;
-//     margin-left: -10%;
-//   }
-//   @media ${({ theme }) => theme.device.tablet} {
-//     scale: 100%;
-//     margin-right: 10%;
-//   }
-// `;
-
 const Info = styled.div`
-  color: ${({ isDay }) => (isDay ? "#0C0C0E" : "#FFFFFF")};
+  color: ${({ isDay }) => (isDay() ? "#0C0C0E" : "#FFFFFF")};
   p {
     opacity: 0.4;
     font-style: normal;
@@ -112,7 +104,7 @@ const Info = styled.div`
     display: flex;
     img {
       margin-right: 4px;
-      filter: ${({ isDay }) => (isDay ? "invert()" : "")};
+      filter: ${({ isDay }) => (isDay() ? "invert()" : "")};
     }
   }
 `;

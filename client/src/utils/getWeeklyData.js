@@ -1,7 +1,7 @@
 export const getWeeklyData = (groupByData, keyList) => {
-  let allTemp = [];
-  let allHumidity = [];
-  let allIcons = [];
+  let temps = [];
+  let humiditys = [];
+  let icons = [];
 
   keyList.map((key) => {
     let tempList = [];
@@ -12,10 +12,10 @@ export const getWeeklyData = (groupByData, keyList) => {
       humidityList.push(v.main.humidity);
       iconList.push(v.weather[0].icon);
     });
-    allTemp.push(tempList);
-    allHumidity.push(humidityList);
-    allIcons.push(iconList);
+    temps.push(tempList);
+    humiditys.push(humidityList);
+    icons.push(iconList);
   });
 
-  return { allTemp, allHumidity, allIcons };
+  return { temps, humiditys, icons };
 };

@@ -1,29 +1,23 @@
 import styled from "styled-components";
 import { GrayText } from "./atom/GrayText";
-import { useEffect, useState } from "react";
 import { getAdvice } from "../utils/getAdvice";
 import { getRecommendedClothes } from "../utils/getRecommendedClothes";
 import { getColorByItem } from "../utils/getColorByItem";
 
-export const WearedCard = ({ weather }) => {
-  const [clothesList, setClothesList] = useState([]);
-
-  useEffect(() => {
-    setClothesList(getRecommendedClothes(weather));
-  }, [weather]);
-
+export const WearedCard = ({ temp }) => {
   return (
     <WearedCardStyled>
       <GrayText>오늘은</GrayText>
-      <Title>{getAdvice(weather)}</Title>
+      <Title>{getAdvice(temp)}</Title>
       <Clothes>
-        {clothesList.map((clothes, index) => {
-          return (
-            <Item key={index} item={clothes}>
-              {clothes}
-            </Item>
-          );
-        })}
+        {temp &&
+          getRecommendedClothes(temp).map((clothes, index) => {
+            return (
+              <Item key={index} item={clothes}>
+                {clothes}
+              </Item>
+            );
+          })}
       </Clothes>
     </WearedCardStyled>
   );
