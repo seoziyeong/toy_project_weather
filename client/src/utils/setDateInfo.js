@@ -1,4 +1,5 @@
-export const getDateInfo = () => {
+// 현재 날짜, 시간 정보를 조합해 설정
+export const setDateInfo = () => {
   const today = new Date();
   const month = today.getMonth() + 1;
   const day = today.getDate();
@@ -6,8 +7,7 @@ export const getDateInfo = () => {
   const dayOfWeek = week[today.getDay()];
   const hours = ("0" + today.getHours()).slice(-2);
   const minutes = ("0" + today.getMinutes()).slice(-2);
-  const dateString =
-    month + "월 " + day + "일(" + dayOfWeek + ") " + hours + ":" + minutes;
+  const dateString = month + "월 " + day + "일(" + dayOfWeek + ") " + hours + ":" + minutes;
 
   return dateString;
 };

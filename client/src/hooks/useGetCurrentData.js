@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { weatherApi } from "../api";
-import { getEndPoint } from "../utils/getEndPoint";
+import { combineEndPoint } from "../utils/combineEndPoint";
 import wrapPromise from "../api/wrapPromise";
 
 function useGetCurrentData() {
@@ -11,7 +11,7 @@ function useGetCurrentData() {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
-      const promise = weatherApi.getCurrentRequest(getEndPoint("current", lat, lon)).then((res) => res.data);
+      const promise = weatherApi.getCurrentRequest(combineEndPoint("current", lat, lon)).then((res) => res.data);
 
       setResource(wrapPromise(promise));
     }

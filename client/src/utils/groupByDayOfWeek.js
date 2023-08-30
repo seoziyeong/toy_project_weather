@@ -1,4 +1,5 @@
-export const getDayOfTheWeekGroup = (hour, index) => {
+// 요일별로 데이터 그룹화
+export const groupByDayOfWeek = (hour, index) => {
   return hour.reduce(function (v, e) {
     let group = e[index];
 

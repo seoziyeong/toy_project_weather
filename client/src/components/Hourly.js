@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Division } from "./atom/Division";
 import { GrayText } from "./atom/GrayText";
 import useGetHourlyData from "../hooks/useGetHourlyData";
-import { getWeatherIcon } from "../utils/getWeatherIcon";
-import { getHourTime } from "../utils/getHourTime";
+import { showWeatherIcon } from "../utils/showWeatherIcon";
+import { composeHourTime } from "../utils/composeHourTime";
 
 export const Hourly = () => {
   const hourlyData = useGetHourlyData();
@@ -37,8 +37,8 @@ export const Hourly = () => {
                   return (
                     <React.Fragment key={index}>
                       <Unit>
-                        <GrayText>{getHourTime(hour)}</GrayText>
-                        <p>{getWeatherIcon(hour.weather[0].icon)}</p>
+                        <GrayText>{composeHourTime(hour)}</GrayText>
+                        <p>{showWeatherIcon(hour.weather[0].icon)}</p>
                         <p>{Math.round(hour.main.temp)}˚</p>
                         <p>
                           <img src="./img/icon_humidity2.png" alt="" />
@@ -51,8 +51,8 @@ export const Hourly = () => {
                 } else {
                   return (
                     <Unit key={index}>
-                      <GrayText>{getHourTime(hour)}</GrayText>
-                      <p>{getWeatherIcon(hour.weather[0].icon)}</p>
+                      <GrayText>{composeHourTime(hour)}</GrayText>
+                      <p>{showWeatherIcon(hour.weather[0].icon)}</p>
                       <p>{Math.round(hour.main.temp)}˚</p>
                       <p>
                         <img src="./img/icon_humidity2.png" alt="" />

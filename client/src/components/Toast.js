@@ -2,15 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import useGetAirData from "../hooks/useGetAirData";
 import useGetCurrentData from "../hooks/useGetCurrentData";
-import { getToastStatus } from "../utils/getToastStatus";
-import { getToastText } from "../utils/getToastText";
-import { getToastIcon } from "../utils/getToastIcon";
-import { getToastCssColors } from "../utils/getToastCssColors";
+import { setToastStatus } from "../utils/setToastStatus";
+import { showAdviceInToast } from "../utils/showAdviceInToast";
+import { showToastIcon } from "../utils/showToastIcon";
+import { setColorHexCodeForToast } from "../utils/setColorHexCodeForToast";
 
 export const Toast = () => {
   const currentData = useGetCurrentData();
   const airData = useGetAirData();
-  const status = getToastStatus(currentData, airData);
+  const status = setToastStatus(currentData, airData);
 
   const [position, setPosition] = useState(true);
   function handleClose() {
@@ -29,8 +29,8 @@ export const Toast = () => {
         if (position) handleClose();
       }}
     >
-      <pre>{getToastText(status)}</pre>
-      <Icon>{getToastIcon(status)}</Icon>
+      <pre>{showAdviceInToast(status)}</pre>
+      <Icon>{showToastIcon(status)}</Icon>
     </StyledToast>
   );
 };
@@ -46,9 +46,9 @@ const StyledToast = styled.div`
   display: ${({ status }) => (status ? "flex" : "none")};
   justify-content: space-between;
   align-items: center;
-  color: ${({ status }) => status && getToastCssColors(status).font};
-  border: 2px solid ${({ status }) => status && getToastCssColors(status).border};
-  background-color: ${({ status }) => status && getToastCssColors(status).bg};
+  color: ${({ status }) => status && setColorHexCodeForToast(status).font};
+  border: 2px solid ${({ status }) => status && setColorHexCodeForToast(status).border};
+  background-color: ${({ status }) => status && setColorHexCodeForToast(status).bg};
   opacity: 0.9;
 
   @keyframes positionHidden {

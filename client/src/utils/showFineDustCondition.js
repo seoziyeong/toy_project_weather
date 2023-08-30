@@ -1,4 +1,5 @@
-export const getFineDustCondition = (kind, dust) => {
+// 미세먼지, 초미세먼지 상태 제공
+export const showFineDustCondition = (kind, dust) => {
   if (kind === "fineDust") {
     if (dust <= 30) return "좋음";
     if (dust <= 80) return "보통";

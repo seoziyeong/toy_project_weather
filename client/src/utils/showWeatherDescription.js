@@ -1,4 +1,5 @@
-export const getWeatherDescription = (desc) => {
+// desc code에 맞는 날씨 상태 제공
+export const showWeatherDescription = (desc) => {
   if (desc === "01") return "맑음";
   if (desc === "02") return "구름 조금";
   if (desc === "03" || desc === "04") return "구름 많음";

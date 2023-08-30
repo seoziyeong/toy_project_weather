@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getDateInfo } from "../utils/getDateInfo";
+import { setDateInfo } from "../utils/setDateInfo";
 import useGetCurrentData from "../hooks/useGetCurrentData";
 
 export const Location = () => {
@@ -13,7 +13,7 @@ export const Location = () => {
             <img src={`./img/icon_location.png`} alt="location" />
             <h4>{currentData.name ? currentData.name : ""}</h4>
           </City>
-          <h4>{getDateInfo()}</h4>
+          <h4>{setDateInfo()}</h4>
         </>
       )}
     </Header>

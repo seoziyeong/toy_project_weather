@@ -3,8 +3,8 @@ import { WearedCard } from "./WearedCard";
 import { WeatherImg } from "./atom/WeatherImg";
 import useGetCurrentData from "../hooks/useGetCurrentData";
 import useGetAirData from "../hooks/useGetAirData";
-import { getWeatherDescription } from "../utils/getWeatherDescription";
-import { getFineDustCondition } from "../utils/getFineDustCondition";
+import { showWeatherDescription } from "../utils/showWeatherDescription";
+import { showFineDustCondition } from "../utils/showFineDustCondition";
 
 export const Today = () => {
   const currentData = useGetCurrentData();
@@ -30,7 +30,7 @@ export const Today = () => {
               <p>현재</p>
               <TempInfo>
                 <div>{Math.round(currentData.main.temp)}˚</div>
-                <div>{getWeatherDescription(currentData.weather[0].icon.substr(0, 2))}</div>
+                <div>{showWeatherDescription(currentData.weather[0].icon.substr(0, 2))}</div>
               </TempInfo>
               <p>
                 <img src="./img/icon_humidity.png" alt="humidity" />
@@ -38,7 +38,7 @@ export const Today = () => {
               </p>
               <p>
                 <img src="./img/icon_air.png" alt="air" />
-                미세먼지 {getFineDustCondition("fineDust", airData.pm10)}
+                미세먼지 {showFineDustCondition("fineDust", airData.pm10)}
               </p>
             </Info>
           </Weather>

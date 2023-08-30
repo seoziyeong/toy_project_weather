@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GrayText } from "./atom/GrayText";
 import useGetHourlyData from "../hooks/useGetHourlyData";
-import { getDayOfTheWeekGroup } from "../utils/getDayOfTheWeekGroup";
-import { getWeeklyData } from "../utils/getWeeklyData";
-import { getMaxAndMinTempIcon } from "../utils/getMaxAndMinTempIcon";
-import { getMaxAndMinTemp } from "../utils/getMaxAndMinTemp";
-import { getMaxHumidity } from "../utils/getMaxHuminity";
-import { getHourList } from "../utils/getHourList";
+import { groupByDayOfWeek } from "../utils/groupByDayOfWeek";
+import { groupWeeklyDataByObj } from "../utils/groupWeeklyDataByObj";
+import { setIconForMaxAndMinTemp } from "../utils/setIconForMaxAndMinTemp";
+import { filterMaxAndMinOfTemp } from "../utils/filterMaxAndMinOfTemp";
+import { filterMaxHumidity } from "../utils/filterMaxHumidity";
+import { addHourToList } from "../utils/addHourToList";
 
 export const Weekly = () => {
   const hourlyData = useGetHourlyData();
@@ -16,11 +16,11 @@ export const Weekly = () => {
 
   useEffect(() => {
     if (hourlyData) {
-      const addDayData = getHourList(hourlyData);
-      const groupByData = getDayOfTheWeekGroup(addDayData, "day");
+      const addHourToListData = addHourToList(hourlyData);
+      const groupByData = groupByDayOfWeek(addHourToListData, "day");
       const tempKeyList = Object.keys(groupByData);
       setKeyList(tempKeyList);
-      setAllDetails(getWeeklyData(groupByData, tempKeyList));
+      setAllDetails(groupWeeklyDataByObj(groupByData, tempKeyList));
     }
   }, [hourlyData]);
 
@@ -38,29 +38,29 @@ export const Weekly = () => {
                       <GrayText>{v}</GrayText>
                       <p>
                         <span>
-                          {getMaxAndMinTempIcon(
+                          {setIconForMaxAndMinTemp(
                             "max",
                             allDetails.temps[i],
-                            getMaxAndMinTemp(allDetails.temps[i]).max,
+                            filterMaxAndMinOfTemp(allDetails.temps[i]).max,
                             allDetails.icons[i]
                           )}
                         </span>
                         <span>
-                          {getMaxAndMinTempIcon(
+                          {setIconForMaxAndMinTemp(
                             "min",
                             allDetails.temps[i],
-                            getMaxAndMinTemp(allDetails.temps[i]).min,
+                            filterMaxAndMinOfTemp(allDetails.temps[i]).min,
                             allDetails.icons[i]
                           )}
                         </span>
                       </p>
                       <p>
-                        <span>{getMaxAndMinTemp(allDetails.temps[i]).max}˚</span>
-                        <span>{getMaxAndMinTemp(allDetails.temps[i]).min}˚</span>
+                        <span>{filterMaxAndMinOfTemp(allDetails.temps[i]).max}˚</span>
+                        <span>{filterMaxAndMinOfTemp(allDetails.temps[i]).min}˚</span>
                       </p>
                       <p>
                         <img src="./img/icon_humidity2.png" alt="" />
-                        {getMaxHumidity(allDetails.humiditys[i])}
+                        {filterMaxHumidity(allDetails.humiditys[i])}
                       </p>
                     </Unit>
                   </React.Fragment>

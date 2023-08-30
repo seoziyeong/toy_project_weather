@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import { GrayText } from "./atom/GrayText";
-import { getAdvice } from "../utils/getAdvice";
-import { getRecommendedClothes } from "../utils/getRecommendedClothes";
-import { getColorByItem } from "../utils/getColorByItem";
+import { showDressAdvice } from "../utils/showDressAdvice";
+import { showRecommendedClothesList } from "../utils/showRecommendedClothesList";
+import { setColorHexCodeByItem } from "../utils/setColorHexCodeByItem";
 
 export const WearedCard = ({ temp }) => {
   return (
     <WearedCardStyled>
       <GrayText>오늘은</GrayText>
-      <Title>{getAdvice(temp)}</Title>
+      <Title>{showDressAdvice(temp)}</Title>
       <Clothes>
         {temp &&
-          getRecommendedClothes(temp).map((clothes, index) => {
+          showRecommendedClothesList(temp).map((clothes, index) => {
             return (
               <Item key={index} item={clothes}>
                 {clothes}
@@ -81,7 +81,7 @@ const Item = styled.span`
   font-size: 14px;
   position: relative;
 
-  color: ${({ item }) => getColorByItem(item)};
+  color: ${({ item }) => setColorHexCodeByItem(item)};
 
   ::before {
     content: "";
@@ -90,7 +90,7 @@ const Item = styled.span`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: ${({ item }) => getColorByItem(item)};
+    background-color: ${({ item }) => setColorHexCodeByItem(item)};
     opacity: 0.1;
     border-radius: 16px;
   }

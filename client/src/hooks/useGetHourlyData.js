@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { weatherApi } from "../api";
-import { getEndPoint } from "../utils/getEndPoint";
+import { combineEndPoint } from "../utils/combineEndPoint";
 import wrapPromise from "../api/wrapPromise";
 
 function useGetHourlyData() {
@@ -11,7 +11,7 @@ function useGetHourlyData() {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
 
-      const promise = weatherApi.getHourlyRequest(getEndPoint("hourly", lat, lon)).then((res) => res.data.list);
+      const promise = weatherApi.getHourlyRequest(combineEndPoint("hourly", lat, lon)).then((res) => res.data.list);
 
       setResource(wrapPromise(promise));
     }

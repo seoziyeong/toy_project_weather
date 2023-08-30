@@ -1,4 +1,5 @@
-export const getHourTime = (hour) => {
+// 24시간 표기법으로 되어있는 데이터를 오전/오후 12시간 표기법으로 작성하는 함수
+export const composeHourTime = (hour) => {
   let daytime;
   let dtText = hour.dt_txt.split(" ")[1].slice(0, 2);
 

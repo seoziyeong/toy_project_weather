@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Division } from "./atom/Division";
 import useGetAirData from "../hooks/useGetAirData";
-import { getFineDustCondition } from "../utils/getFineDustCondition";
-import { getFineDustIcon } from "../utils/getFineDustIcon";
+import { showFineDustCondition } from "../utils/showFineDustCondition";
+import { showFineDustIcon } from "../utils/showFineDustIcon";
 
 export const Air = () => {
   const airData = useGetAirData();
@@ -15,16 +15,16 @@ export const Air = () => {
           <Box>
             <InfoContainer>
               <Info>
-                <Emoji>{getFineDustIcon(getFineDustCondition("fineDust", airData.pm10))}</Emoji>
+                <Emoji>{showFineDustIcon(showFineDustCondition("fineDust", airData.pm10))}</Emoji>
                 <GrayText>미세먼지</GrayText>
-                <Badge condition={airData.pm10}>{getFineDustCondition("fineDust", airData.pm10)}</Badge>
+                <Badge condition={airData.pm10}>{showFineDustCondition("fineDust", airData.pm10)}</Badge>
                 <p>{airData.pm10} ㎍/m³</p>
               </Info>
               <Division />
               <Info>
-                <Emoji>{getFineDustIcon(getFineDustCondition("fineDust", airData.pm2_5))}</Emoji>
+                <Emoji>{showFineDustIcon(showFineDustCondition("fineDust", airData.pm2_5))}</Emoji>
                 <GrayText>초미세먼지</GrayText>
-                <Badge condition={airData.pm2_5}>{getFineDustCondition("fineDust", airData.pm2_5)}</Badge>
+                <Badge condition={airData.pm2_5}>{showFineDustCondition("fineDust", airData.pm2_5)}</Badge>
                 <p>{airData.pm2_5} ㎍/m³</p>
               </Info>
             </InfoContainer>

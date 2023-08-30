@@ -1,4 +1,5 @@
-export const getWeatherIcon = (icon) => {
+// api 기본 icon 대체하는 icon 제공
+export const showWeatherIcon = (icon) => {
   if (icon === "01d") return "☀";
   if (icon === "02d") return "🌤";
   if (icon === "10d") return "🌦";
