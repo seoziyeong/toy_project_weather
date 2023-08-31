@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Division } from "@components/atom/Division";
 import useGetAirData from "@hooks/useGetAirData";
@@ -8,6 +9,16 @@ import { setColorHexCodeAirConditionBadge } from "@utils/setColorHexCodeAirCondi
 export const Air = () => {
   const airData = useGetAirData();
 
+  const [fineDust, setFineDust] = useState("좋음");
+  const [ultraFineDust, setUltraFineDust] = useState("좋음");
+
+  useEffect(() => {
+    if (airData) {
+      setFineDust(showFineDustCondition("fineDust", airData.pm10));
+      setUltraFineDust(showFineDustCondition("ultraFineDust", airData.pm2_5));
+    }
+  }, [airData]);
+
   return (
     <>
       {airData && (
@@ -16,20 +27,16 @@ export const Air = () => {
           <Box>
             <InfoContainer>
               <Info>
-                <Emoji>{showFineDustIcon(showFineDustCondition("fineDust", airData.pm10))}</Emoji>
+                <Emoji>{showFineDustIcon(fineDust)}</Emoji>
                 <GrayText>미세먼지</GrayText>
-                <Badge condition={showFineDustCondition("fineDust", airData.pm10)}>
-                  {showFineDustCondition("fineDust", airData.pm10)}
-                </Badge>
+                <Badge condition={fineDust}>{fineDust}</Badge>
                 <p>{airData.pm10} ㎍/m³</p>
               </Info>
               <Division />
               <Info>
-                <Emoji>{showFineDustIcon(showFineDustCondition("fineDust", airData.pm2_5))}</Emoji>
+                <Emoji>{showFineDustIcon(ultraFineDust)}</Emoji>
                 <GrayText>초미세먼지</GrayText>
-                <Badge condition={showFineDustCondition("ultraFineDust", airData.pm2_5)}>
-                  {showFineDustCondition("fineDust", airData.pm2_5)}
-                </Badge>
+                <Badge condition={ultraFineDust}>{ultraFineDust}</Badge>
                 <p>{airData.pm2_5} ㎍/m³</p>
               </Info>
             </InfoContainer>
