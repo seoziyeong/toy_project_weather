@@ -3,6 +3,7 @@ import { Division } from "@components/atom/Division";
 import useGetAirData from "@hooks/useGetAirData";
 import { showFineDustCondition } from "@utils/showFineDustCondition";
 import { showFineDustIcon } from "@utils/showFineDustIcon";
+import { setColorHexCodeAirConditionBadge } from "@utils/setColorHexCodeAirConditionBadge";
 
 export const Air = () => {
   const airData = useGetAirData();
@@ -17,14 +18,18 @@ export const Air = () => {
               <Info>
                 <Emoji>{showFineDustIcon(showFineDustCondition("fineDust", airData.pm10))}</Emoji>
                 <GrayText>미세먼지</GrayText>
-                <Badge condition={airData.pm10}>{showFineDustCondition("fineDust", airData.pm10)}</Badge>
+                <Badge condition={showFineDustCondition("fineDust", airData.pm10)}>
+                  {showFineDustCondition("fineDust", airData.pm10)}
+                </Badge>
                 <p>{airData.pm10} ㎍/m³</p>
               </Info>
               <Division />
               <Info>
                 <Emoji>{showFineDustIcon(showFineDustCondition("fineDust", airData.pm2_5))}</Emoji>
                 <GrayText>초미세먼지</GrayText>
-                <Badge condition={airData.pm2_5}>{showFineDustCondition("fineDust", airData.pm2_5)}</Badge>
+                <Badge condition={showFineDustCondition("ultraFineDust", airData.pm2_5)}>
+                  {showFineDustCondition("fineDust", airData.pm2_5)}
+                </Badge>
                 <p>{airData.pm2_5} ㎍/m³</p>
               </Info>
             </InfoContainer>
@@ -90,19 +95,10 @@ const Badge = styled.span`
   padding: 4px 8px;
   font-weight: 800;
   font-size: 14px;
-  border: 2px solid
-    ${({ condition }) =>
-      condition === "좋음"
-        ? "rgba(85, 195, 228, 0.4)"
-        : condition === "보통"
-        ? "rgba(95, 200, 105, 0.4)"
-        : condition === "나쁨"
-        ? "rgba(239, 160, 7, 0.4)"
-        : "rgba(230, 60, 69, 0.4)"};
+  border: 2px solid ${({ condition }) => setColorHexCodeAirConditionBadge(condition).border};
   border-radius: 16px;
 
-  color: ${({ condition }) =>
-    condition === "좋음" ? "#55C3E4" : condition === "보통" ? "#5FC869" : condition === "나쁨" ? "#EFA007" : "#E63C45"};
+  color: ${({ condition }) => setColorHexCodeAirConditionBadge(condition).font};
 `;
 
 const InfoContainer = styled.div`
