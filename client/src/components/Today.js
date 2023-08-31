@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { WearedCard } from "./WearedCard";
-import { WeatherImg } from "./atom/WeatherImg";
-import useGetCurrentData from "../hooks/useGetCurrentData";
-import useGetAirData from "../hooks/useGetAirData";
-import { showWeatherDescription } from "../utils/showWeatherDescription";
-import { showFineDustCondition } from "../utils/showFineDustCondition";
+import { WeatherImg } from "@components/atom/WeatherImg";
+import useGetCurrentData from "@hooks/useGetCurrentData";
+import useGetAirData from "@hooks/useGetAirData";
+import { showWeatherDescription } from "@utils/showWeatherDescription";
+import { showFineDustCondition } from "@utils/showFineDustCondition";
 
 export const Today = () => {
   const currentData = useGetCurrentData();

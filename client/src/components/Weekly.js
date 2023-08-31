@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { GrayText } from "./atom/GrayText";
-import useGetHourlyData from "../hooks/useGetHourlyData";
-import { groupByDayOfWeek } from "../utils/groupByDayOfWeek";
-import { groupWeeklyDataByObj } from "../utils/groupWeeklyDataByObj";
-import { setIconForMaxAndMinTemp } from "../utils/setIconForMaxAndMinTemp";
-import { filterMaxAndMinOfTemp } from "../utils/filterMaxAndMinOfTemp";
-import { filterMaxHumidity } from "../utils/filterMaxHumidity";
-import { addHourToList } from "../utils/addHourToList";
+import { GrayText } from "@components/atom/GrayText";
+import useGetHourlyData from "@hooks/useGetHourlyData";
+import { groupByDayOfWeek } from "@utils/groupByDayOfWeek";
+import { groupWeeklyDataByObj } from "@utils/groupWeeklyDataByObj";
+import { setIconForMaxAndMinTemp } from "@utils/setIconForMaxAndMinTemp";
+import { filterMaxAndMinOfTemp } from "@utils/filterMaxAndMinOfTemp";
+import { filterMaxHumidity } from "@utils/filterMaxHumidity";
+import { addHourToList } from "@utils/addHourToList";
 
 export const Weekly = () => {
   const hourlyData = useGetHourlyData();

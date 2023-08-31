@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { Division } from "./atom/Division";
-import useGetAirData from "../hooks/useGetAirData";
-import { showFineDustCondition } from "../utils/showFineDustCondition";
-import { showFineDustIcon } from "../utils/showFineDustIcon";
+import { Division } from "@components/atom/Division";
+import useGetAirData from "@hooks/useGetAirData";
+import { showFineDustCondition } from "@utils/showFineDustCondition";
+import { showFineDustIcon } from "@utils/showFineDustIcon";
 
 export const Air = () => {
   const airData = useGetAirData();

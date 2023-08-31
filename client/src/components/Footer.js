@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useGetCurrentData from "../hooks/useGetCurrentData";
+import useGetCurrentData from "@hooks/useGetCurrentData";
 
 export const Footer = () => {
   const currentData = useGetCurrentData();

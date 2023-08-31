@@ -1,4 +1,4 @@
-import { WEEKDAY } from "../constants/weekday-constants";
+import { WEEKDAY } from "@constants/weekday-constants";
 
 // 시간별 데이터에 누락된 요일 정보를 추가하는 함수
 export const addHourToList = (hourly) => {

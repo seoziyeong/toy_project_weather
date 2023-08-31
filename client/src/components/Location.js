@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { setDateInfo } from "../utils/setDateInfo";
-import useGetCurrentData from "../hooks/useGetCurrentData";
+import { setDateInfo } from "@utils/setDateInfo";
+import useGetCurrentData from "@hooks/useGetCurrentData";
 
 export const Location = () => {
   const currentData = useGetCurrentData();

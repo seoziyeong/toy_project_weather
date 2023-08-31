@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Division } from "./atom/Division";
-import { GrayText } from "./atom/GrayText";
-import useGetHourlyData from "../hooks/useGetHourlyData";
-import { showWeatherIcon } from "../utils/showWeatherIcon";
-import { composeHourTime } from "../utils/composeHourTime";
+import { Division } from "@components/atom/Division";
+import { GrayText } from "@components/atom/GrayText";
+import useGetHourlyData from "@hooks/useGetHourlyData";
+import { showWeatherIcon } from "@utils/showWeatherIcon";
+import { composeHourTime } from "@utils/composeHourTime";
 
 export const Hourly = () => {
   const hourlyData = useGetHourlyData();

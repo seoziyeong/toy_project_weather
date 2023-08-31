@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { GrayText } from "./atom/GrayText";
-import { showDressAdvice } from "../utils/showDressAdvice";
-import { showRecommendedClothesList } from "../utils/showRecommendedClothesList";
-import { setColorHexCodeByItem } from "../utils/setColorHexCodeByItem";
+import { GrayText } from "@components/atom/GrayText";
+import { showDressAdvice } from "@utils/showDressAdvice";
+import { showRecommendedClothesList } from "@utils/showRecommendedClothesList";
+import { setColorHexCodeByItem } from "@utils/setColorHexCodeByItem";
 
 export const WearedCard = ({ temp }) => {
   return (

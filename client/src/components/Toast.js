@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import useGetAirData from "../hooks/useGetAirData";
-import useGetCurrentData from "../hooks/useGetCurrentData";
-import { setToastStatus } from "../utils/setToastStatus";
-import { showAdviceInToast } from "../utils/showAdviceInToast";
-import { showToastIcon } from "../utils/showToastIcon";
-import { setColorHexCodeForToast } from "../utils/setColorHexCodeForToast";
+import useGetAirData from "@hooks/useGetAirData";
+import useGetCurrentData from "@hooks/useGetCurrentData";
+import { setToastStatus } from "@utils/setToastStatus";
+import { showAdviceInToast } from "@utils/showAdviceInToast";
+import { showToastIcon } from "@utils/showToastIcon";
+import { setColorHexCodeForToast } from "@utils/setColorHexCodeForToast";
 
 export const Toast = () => {
   const currentData = useGetCurrentData();

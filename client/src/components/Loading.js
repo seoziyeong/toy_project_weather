@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { WeatherImg } from "./atom/WeatherImg";
+import { WeatherImg } from "@components/atom/WeatherImg";
 
 export const Loading = () => {
   return (

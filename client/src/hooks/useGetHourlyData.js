@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { weatherApi } from "../api";
-import { combineEndPoint } from "../utils/combineEndPoint";
-import wrapPromise from "../api/wrapPromise";
+import { weatherApi } from "@api";
+import { combineEndPoint } from "@utils/combineEndPoint";
+import wrapPromise from "@api/wrapPromise";
 
 function useGetHourlyData() {
   const [resource, setResource] = useState(null);
