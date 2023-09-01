@@ -4,12 +4,22 @@ import { showDressAdvice } from "../utils/showDressAdvice";
 import { showRecommendedClothesList } from "../utils/showRecommendedClothesList";
 import { setColorHexCodeByItem } from "../utils/setColorHexCodeByItem";
 
-// TODO : temp: number 달면 오류 남 왜??
-export const WearedCard = (temp) => {
+export const WearedCard = ({ temp }: { temp: number }) => {
+  const adviceSentence = showDressAdvice(temp);
+
   return (
     <WearedCardStyled>
       <GrayText>오늘은</GrayText>
-      <Title>{showDressAdvice(temp)}</Title>
+      <Title>
+        {adviceSentence.map((v) => {
+          return (
+            <>
+              {v}
+              <br />
+            </>
+          );
+        })}
+      </Title>
       <Clothes>
         {temp &&
           showRecommendedClothesList(temp).map((clothes, index) => {
@@ -81,10 +91,9 @@ const Item = styled.span<{ $item: string }>`
   font-weight: 600;
   font-size: 14px;
   position: relative;
-
   color: ${({ $item }) => setColorHexCodeByItem($item)};
 
-  ::before {
+  &::before {
     content: "";
     position: absolute;
     top: 0;

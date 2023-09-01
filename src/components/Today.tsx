@@ -47,7 +47,7 @@ export const Today = () => {
               </p>
             </Info>
           </Weather>
-          <WearedCard temp={temp!}></WearedCard>
+          <WearedCard temp={temp} />
         </Banner>
       )}
     </>
