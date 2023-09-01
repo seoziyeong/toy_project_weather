@@ -10,13 +10,4 @@ export const WeatherImg = styled.img`
       transform: translatey(-12px);
     }
   }
-
-  /* @media ${({ theme }) => theme.device.mobile} {
-    scale: 65%;
-    margin-left: -10%;
-  }
-  @media ${({ theme }) => theme.device.tablet} {
-    scale: 100%;
-    margin-right: 10%;
-  } */
 `;

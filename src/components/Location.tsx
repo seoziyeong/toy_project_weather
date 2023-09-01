@@ -12,8 +12,7 @@ export const Location = () => {
         <>
           <City>
             <img src={`./img/icon_location.png`} alt="location" />
-            {/* <h4>{currentData.name ? currentData.name : ""}</h4> */}
-            <h4>{currentData.name}</h4>asdf
+            <h4>{currentData.name}</h4>
           </City>
           <h4>{setDateInfo()}</h4>
         </>
