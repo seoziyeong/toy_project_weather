@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { WearedCard } from "./WearedCard";
 import { WeatherImg } from "./atom/WeatherImg";
@@ -5,28 +6,32 @@ import useGetCurrentData from "../hooks/useGetCurrentData";
 import useGetAirData from "../hooks/useGetAirData";
 import { showWeatherDescription } from "../utils/showWeatherDescription";
 import { showFineDustCondition } from "../utils/showFineDustCondition";
+import { CurrentBaseTypes } from "types/current/currentTypes";
+import { AirBaseTypes } from "types/air/airTypes";
 
 export const Today = () => {
-  const currentData = useGetCurrentData();
-  const airData = useGetAirData();
+  const currentData: CurrentBaseTypes = useGetCurrentData();
+  const airData: AirBaseTypes = useGetAirData();
+  const [isDay, setIsDay] = useState(true);
+  const [temp, setTemp] = useState(0);
 
-  // 주/야 설정
-  const isDay = () => {
+  useEffect(() => {
     if (currentData && currentData.weather[0].icon.includes("n")) {
-      return false;
+      setIsDay(false);
+      const tempData = Math.round(currentData.main.temp);
+      setTemp(tempData);
     }
-    return true;
-  };
+  }, [currentData]);
 
   return (
     <>
       {currentData && airData && (
-        <Banner isDay={isDay}>
+        <Banner $isDay={isDay}>
           <Weather>
             <WeatherImgBox>
               <WeatherImg src={`./img/${currentData.weather[0].icon}.png`} />
             </WeatherImgBox>
-            <Info isDay={isDay}>
+            <Info $isDay={isDay}>
               <p>현재</p>
               <TempInfo>
                 <div>{Math.round(currentData.main.temp)}˚</div>
@@ -42,23 +47,21 @@ export const Today = () => {
               </p>
             </Info>
           </Weather>
-          <WearedCard temp={Math.round(currentData.main.temp)}></WearedCard>
+          <WearedCard temp={temp!}></WearedCard>
         </Banner>
       )}
     </>
   );
 };
 
-const Banner = styled.div`
+const Banner = styled.div<{ $isDay: boolean }>`
   width: 100%;
   position: relative;
   display: flex;
   height: 320px;
   border-radius: 32px;
-  background: ${({ isDay }) =>
-    isDay()
-      ? "linear-gradient(180deg, #ffee58 0%, #ffdc5f 100%)"
-      : "linear-gradient(180deg, #334981 0%, #452968 100%)"};
+  background: ${({ $isDay }) =>
+    $isDay ? "linear-gradient(180deg, #ffee58 0%, #ffdc5f 100%)" : "linear-gradient(180deg, #334981 0%, #452968 100%)"};
   box-shadow: 0px 0px 30px rgba(228, 229, 231, 0.1);
 `;
 
@@ -92,8 +95,8 @@ const WeatherImgBox = styled.div`
   }
 `;
 
-const Info = styled.div`
-  color: ${({ isDay }) => (isDay() ? "#0C0C0E" : "#FFFFFF")};
+const Info = styled.div<{ $isDay: boolean }>`
+  color: ${({ $isDay }) => ($isDay ? "#0C0C0E" : "#FFFFFF")};
   p {
     opacity: 0.4;
     font-style: normal;
@@ -104,7 +107,7 @@ const Info = styled.div`
     display: flex;
     img {
       margin-right: 4px;
-      filter: ${({ isDay }) => (isDay() ? "invert()" : "")};
+      filter: ${({ $isDay }) => ($isDay ? "invert()" : "")};
     }
   }
 `;

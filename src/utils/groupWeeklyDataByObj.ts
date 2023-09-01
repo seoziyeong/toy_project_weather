@@ -1,13 +1,13 @@
 // 요일별 데이터를 온도, 습도, 아이콘별 object로 그룹화
 export const groupWeeklyDataByObj = (groupByData, keyList) => {
-  let temps: any[] = [];
-  let humiditys: any[] = [];
-  let icons: any[] = [];
+  let temps: number[][] = [];
+  let humiditys: number[][] = [];
+  let icons: number[][] = [];
 
   keyList.map((key) => {
-    let tempList: any[] = [];
-    let humidityList: any[] = [];
-    let iconList: any[] = [];
+    let tempList: number[] = [];
+    let humidityList: number[] = [];
+    let iconList: number[] = [];
     groupByData[key].map((v) => {
       tempList.push(Math.round(v.main.temp));
       humidityList.push(v.main.humidity);

@@ -6,10 +6,12 @@ import { setToastStatus } from "../utils/setToastStatus";
 import { showAdviceInToast } from "../utils/showAdviceInToast";
 import { showToastIcon } from "../utils/showToastIcon";
 import { setColorHexCodeForToast } from "../utils/setColorHexCodeForToast";
+import { CurrentBaseTypes } from "types/current/currentTypes";
+import { AirBaseTypes } from "types/air/airTypes";
 
 export const Toast = () => {
-  const currentData = useGetCurrentData();
-  const airData = useGetAirData();
+  const currentData: CurrentBaseTypes = useGetCurrentData();
+  const airData: AirBaseTypes = useGetAirData();
   const status = setToastStatus(currentData, airData);
 
   const [position, setPosition] = useState(true);
@@ -17,14 +19,14 @@ export const Toast = () => {
     setPosition(!position);
   }
 
-  if (status === "") {
+  if (status === "ordinary") {
     return <></>;
   }
 
   return (
     <StyledToast
-      status={status}
-      position={position}
+      $status={status}
+      $position={position}
       onClick={() => {
         if (position) handleClose();
       }}
@@ -35,7 +37,7 @@ export const Toast = () => {
   );
 };
 
-const StyledToast = styled.div`
+const StyledToast = styled.div<{ $status: "rain" | "heatWave" | "coldWave" | "dust" | "ordinary"; $position: boolean }>`
   position: fixed;
   right: 16px;
   bottom: 16px;
@@ -43,12 +45,12 @@ const StyledToast = styled.div`
   padding: 24px 40px;
   height: 90px;
   border-radius: 32px;
-  display: ${({ status }) => (status ? "flex" : "none")};
+  display: ${({ $status }) => ($status !== "ordinary" ? "flex" : "none")};
   justify-content: space-between;
   align-items: center;
-  color: ${({ status }) => status && setColorHexCodeForToast(status).font};
-  border: 2px solid ${({ status }) => status && setColorHexCodeForToast(status).border};
-  background-color: ${({ status }) => status && setColorHexCodeForToast(status).bg};
+  color: ${({ $status }) => setColorHexCodeForToast($status).font};
+  border: 2px solid ${({ $status }) => setColorHexCodeForToast($status).border};
+  background-color: ${({ $status }) => setColorHexCodeForToast($status).bg};
   opacity: 0.9;
 
   @keyframes positionHidden {
@@ -61,8 +63,8 @@ const StyledToast = styled.div`
       opacity: 0;
     }
   }
-  animation: ${({ position }) => {
-    if (!position) return "positionHidden 1s";
+  animation: ${({ $position }) => {
+    if (!$position) return "positionHidden 1s";
   }};
   animation-fill-mode: forwards; // animation from 상태로 되돌아가지 않음
 

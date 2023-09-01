@@ -4,7 +4,8 @@ import { showDressAdvice } from "../utils/showDressAdvice";
 import { showRecommendedClothesList } from "../utils/showRecommendedClothesList";
 import { setColorHexCodeByItem } from "../utils/setColorHexCodeByItem";
 
-export const WearedCard = ({ temp }) => {
+// TODO : temp: number 달면 오류 남 왜??
+export const WearedCard = (temp) => {
   return (
     <WearedCardStyled>
       <GrayText>오늘은</GrayText>
@@ -13,7 +14,7 @@ export const WearedCard = ({ temp }) => {
         {temp &&
           showRecommendedClothesList(temp).map((clothes, index) => {
             return (
-              <Item key={index} item={clothes}>
+              <Item key={index} $item={clothes}>
                 {clothes}
               </Item>
             );
@@ -75,13 +76,13 @@ const Clothes = styled.div`
   flex-wrap: wrap;
 `;
 
-const Item = styled.span`
+const Item = styled.span<{ $item: string }>`
   padding: 5px 10px;
   font-weight: 600;
   font-size: 14px;
   position: relative;
 
-  color: ${({ item }) => setColorHexCodeByItem(item)};
+  color: ${({ $item }) => setColorHexCodeByItem($item)};
 
   ::before {
     content: "";
@@ -90,7 +91,7 @@ const Item = styled.span`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: ${({ item }) => setColorHexCodeByItem(item)};
+    background-color: ${({ $item }) => setColorHexCodeByItem($item)};
     opacity: 0.1;
     border-radius: 16px;
   }

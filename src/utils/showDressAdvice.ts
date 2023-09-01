@@ -1,5 +1,5 @@
 // 기온 값에 맞는 advice를 제공
-export const showDressAdvice = (temp) => {
+export const showDressAdvice = (temp: number) => {
   if (temp >= 30) return ["매우 더운 한여름 날씨!", "<br />", "가벼운 옷차림을 추천해요."];
   if (temp >= 27) return ["꽤 덥게 느껴져요.", "<br />", "옷차림을 가볍게 입는 게 좋겠어요."];
   if (temp >= 20) return ["따뜻한 날씨예요.", "<br />", "얇은 겉옷을 챙기셔도 좋아요."];

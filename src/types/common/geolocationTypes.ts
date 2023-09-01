@@ -1,4 +1,4 @@
-export interface geolocationTypes {
+export interface GeolocationTypes {
   coords: {
     accuracy: number;
     altitude: number;

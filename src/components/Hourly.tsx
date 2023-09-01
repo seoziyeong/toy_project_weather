@@ -5,10 +5,11 @@ import { GrayText } from "./atom/GrayText";
 import useGetHourlyData from "../hooks/useGetHourlyData";
 import { showWeatherIcon } from "../utils/showWeatherIcon";
 import { composeHourTime } from "../utils/composeHourTime";
+import { HourlyBaseTypes } from "types/hourly/hourlyTypes";
 
 export const Hourly = () => {
-  const hourlyData = useGetHourlyData();
-  const [hour, setHour] = useState([]);
+  const hourlyData: HourlyBaseTypes[] = useGetHourlyData();
+  const [hour, setHour] = useState<HourlyBaseTypes[]>([]);
 
   useEffect(() => {
     if (hourlyData) setHour(hourlyData.slice(0, 14));
@@ -23,15 +24,15 @@ export const Hourly = () => {
     <>
       {hourlyData && (
         <Contents>
-          <SlideButton onClick={leftMove}>
+          <SlideButton onClick={leftMove} $moveIndex={moveIndex}>
             <img src="./img/icon_prev.png" alt="" />
           </SlideButton>
-          <SlideButton onClick={rightMove}>
+          <SlideButton onClick={rightMove} $moveIndex={moveIndex}>
             <img src="./img/icon_next.png" alt="" />
           </SlideButton>
           <h2>시간대별 날씨</h2>
           <Box>
-            <List moveIndex={moveIndex}>
+            <List $moveIndex={moveIndex}>
               {hour.map((hour, index) => {
                 if (hour.dt_txt.split(" ")[1].slice(0, 2) === "21") {
                   return (
@@ -71,7 +72,7 @@ export const Hourly = () => {
   );
 };
 
-const SlideButton = styled.div`
+const SlideButton = styled.div<{ $moveIndex: string }>`
   width: 40px;
   height: 40px;
   background: #ffffff;
@@ -95,7 +96,7 @@ const SlideButton = styled.div`
   }
   @media ${({ theme }) => theme.device.desktop} {
     display: block;
-    transform: ${(props) => (props.moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)")};
+    transform: ${({ $moveIndex }) => ($moveIndex === "1" ? "translateX(0%)" : "translateX(-12%)")};
   }
 `;
 
@@ -137,7 +138,7 @@ const Box = styled.div`
   }
 `;
 
-const List = styled.div`
+const List = styled.div<{ $moveIndex: string }>`
   display: flex;
   flex-direction: row;
   gap: 24px;
@@ -148,7 +149,7 @@ const List = styled.div`
   }
 
   @media ${({ theme }) => theme.device.desktop} {
-    transform: ${(props) => (props.moveIndex === "1" ? "translateX(0%)" : "translateX(-10%)")};
+    transform: ${({ $moveIndex }) => ($moveIndex === "1" ? "translateX(0%)" : "translateX(-10%)")};
   }
 `;
 

@@ -1,5 +1,5 @@
 // 기온에 따른 옷차림 리스트 제공
-export const showRecommendedClothesList = (temp) => {
+export const showRecommendedClothesList = (temp: number) => {
   if (temp >= 30) return ["반팔 티셔츠", "얇은 셔츠", "민소매", "블라우스", "반바지", "치마", "면바지"];
   if (temp >= 27) return ["반팔 티셔츠", "얇은 셔츠", "블라우스", "치마", "반바지", "면바지", "청바지"];
   if (temp >= 20)
@@ -47,18 +47,6 @@ export const showRecommendedClothesList = (temp) => {
       "청바지",
     ];
   if (temp >= 6) return ["무스탕", "겨울코트", "점퍼", "플리스", "기모후드티", "니트", "면바지", "청바지", "내복"];
-  if (temp <= 2)
-    return [
-      "패딩",
-      "무스탕",
-      "겨울코트",
-      "플리스",
-      "기모후드티",
-      "니트",
-      "기모바지",
-      "청바지",
-      "내복",
-      "목도리",
-      "장갑",
-    ];
+
+  return ["패딩", "무스탕", "겨울코트", "플리스", "기모후드티", "니트", "기모바지", "청바지", "내복", "목도리", "장갑"];
 };

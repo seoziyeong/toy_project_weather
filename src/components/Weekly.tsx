@@ -8,12 +8,15 @@ import { setIconForMaxAndMinTemp } from "../utils/setIconForMaxAndMinTemp";
 import { filterMaxAndMinOfTemp } from "../utils/filterMaxAndMinOfTemp";
 import { filterMaxHumidity } from "../utils/filterMaxHumidity";
 import { addHourToList } from "../utils/addHourToList";
+import { HourlyBaseTypes } from "types/hourly/hourlyTypes";
+import { DetailDataTypes } from "types/common/DetailDataTypes";
 
 export const Weekly = () => {
-  const hourlyData = useGetHourlyData();
-  const [keyList, setKeyList] = useState([]);
-  const [allDetails, setAllDetails] = useState({});
+  const hourlyData: HourlyBaseTypes[] = useGetHourlyData();
+  const [keyList, setKeyList] = useState<string[]>([]);
+  const [allDetails, setAllDetails] = useState<DetailDataTypes>();
 
+  // TODO : addHourToList, groupByDayOfWeek, groupWeeklyDataByObj 묶기
   useEffect(() => {
     if (hourlyData) {
       const addHourToListData = addHourToList(hourlyData);
@@ -26,7 +29,7 @@ export const Weekly = () => {
 
   return (
     <>
-      {hourlyData && (
+      {allDetails && (
         <Contents>
           <h2>주간 날씨</h2>
           <Box>

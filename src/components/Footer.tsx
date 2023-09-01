@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import useGetCurrentData from "../hooks/useGetCurrentData";
+import { CurrentBaseTypes } from "types/current/currentTypes";
 
 export const Footer = () => {
-  const currentData = useGetCurrentData();
+  const currentData: CurrentBaseTypes = useGetCurrentData();
 
   return (
     <>
       {currentData && (
         <Copyright>
-          {/* <p>접속 지역 : {currentData.sys.country}</p> */}
+          <p>접속 지역 : {currentData.sys.country}</p>
           <p>api : openweathermap</p>
           <p>icon source : tossface</p>
           <p>제작 : 서지영</p>

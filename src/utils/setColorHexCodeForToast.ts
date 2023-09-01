@@ -1,5 +1,5 @@
 // toast의 상태값에 따라 color 설정
-export const setColorHexCodeForToast = (status) => {
+export const setColorHexCodeForToast = (status: string) => {
   if (status === "dust")
     return {
       bg: "#FAC7CA",
@@ -18,10 +18,10 @@ export const setColorHexCodeForToast = (status) => {
       border: "#FF9240",
       font: "#E45200",
     };
-  if (status === "coldWave")
-    return {
-      bg: "#9EE5FB",
-      border: "#64DAFF",
-      font: "#009ACB",
-    };
+
+  return {
+    bg: "#9EE5FB",
+    border: "#64DAFF",
+    font: "#009ACB",
+  };
 };

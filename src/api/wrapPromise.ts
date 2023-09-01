@@ -1,4 +1,4 @@
-function wrapPromise(promise: Promise<any>) {
+function wrapPromise(promise: Promise<any>): Promise<void> | unknown {
   let status = "pending";
   let response;
 

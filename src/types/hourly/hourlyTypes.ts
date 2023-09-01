@@ -1,4 +1,4 @@
-import { WeatherTypes } from "../common/weatherTypes";
+import { WeatherTypes } from "../common/WeatherTypes";
 
 export interface HourlyBaseTypes {
   weather: WeatherTypes[];
@@ -28,4 +28,8 @@ export interface HourlyBaseTypes {
     gust: number;
     speed: number;
   };
+}
+
+export interface HourlyWithWeeksTypes extends HourlyBaseTypes {
+  day: string;
 }

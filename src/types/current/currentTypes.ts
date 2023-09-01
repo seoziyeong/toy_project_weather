@@ -1,4 +1,4 @@
-import { WeatherTypes } from "../common/weatherTypes";
+import { WeatherTypes } from "../common/WeatherTypes";
 
 export interface CurrentBaseTypes {
   weather: WeatherTypes[];
@@ -35,4 +35,5 @@ export interface CurrentBaseTypes {
     deg: number;
     speed: number;
   };
+  rain: string | number;
 }
