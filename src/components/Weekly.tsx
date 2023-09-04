@@ -8,8 +8,8 @@ import { setIconForMaxAndMinTemp } from "../utils/setIconForMaxAndMinTemp";
 import { filterMaxAndMinOfTemp } from "../utils/filterMaxAndMinOfTemp";
 import { filterMaxHumidity } from "../utils/filterMaxHumidity";
 import { addHourToList } from "../utils/addHourToList";
-import { HourlyBaseTypes } from "types/hourly/hourlyTypes";
-import { DetailDataTypes } from "types/common/DetailDataTypes";
+import { HourlyBaseTypes } from "../types/hourly/hourlyTypes";
+import { DetailDataTypes } from "../types/common/DetailDataTypes";
 
 export const Weekly = () => {
   const hourlyData: HourlyBaseTypes[] = useGetHourlyData();

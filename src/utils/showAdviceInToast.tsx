@@ -1,4 +1,4 @@
-import { ToastStatusTypes } from "types/common/ToastStatusTypes";
+import { ToastStatusTypes } from "../types/common/ToastStatusTypes";
 
 // 토스트 팝업에 들어가는 advice text
 export const showAdviceInToast = (status: ToastStatusTypes) => {

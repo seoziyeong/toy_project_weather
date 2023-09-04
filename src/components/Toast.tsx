@@ -6,9 +6,9 @@ import { setToastStatus } from "../utils/setToastStatus";
 import { showAdviceInToast } from "../utils/showAdviceInToast";
 import { showToastIcon } from "../utils/showToastIcon";
 import { setColorHexCodeForToast } from "../utils/setColorHexCodeForToast";
-import { CurrentBaseTypes } from "types/current/currentTypes";
-import { AirBaseTypes } from "types/air/airTypes";
-import { ToastStatusTypes } from "types/common/ToastStatusTypes";
+import { CurrentBaseTypes } from "../types/current/currentTypes";
+import { AirBaseTypes } from "../types/air/airTypes";
+import { ToastStatusTypes } from "../types/common/ToastStatusTypes";
 
 export const Toast = () => {
   const currentData: CurrentBaseTypes = useGetCurrentData();

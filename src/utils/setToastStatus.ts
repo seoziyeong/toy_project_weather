@@ -1,6 +1,6 @@
 import { showFineDustCondition } from "./showFineDustCondition";
-import { CurrentBaseTypes } from "types/current/currentTypes";
-import { AirBaseTypes } from "types/air/airTypes";
+import { CurrentBaseTypes } from "../types/current/currentTypes";
+import { AirBaseTypes } from "../types/air/airTypes";
 
 // 토스트 팝업의 상태 설정
 export const setToastStatus = (current: CurrentBaseTypes, air: AirBaseTypes) => {

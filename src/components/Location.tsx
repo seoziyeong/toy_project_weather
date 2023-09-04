@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { setDateInfo } from "../utils/setDateInfo";
 import useGetCurrentData from "../hooks/useGetCurrentData";
-import { CurrentBaseTypes } from "types/current/currentTypes";
+import { CurrentBaseTypes } from "../types/current/currentTypes";
 
 export const Location = () => {
   const currentData: CurrentBaseTypes = useGetCurrentData();

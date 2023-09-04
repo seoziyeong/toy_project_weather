@@ -5,7 +5,7 @@ import { GrayText } from "./atom/GrayText";
 import useGetHourlyData from "../hooks/useGetHourlyData";
 import { showWeatherIcon } from "../utils/showWeatherIcon";
 import { composeHourTime } from "../utils/composeHourTime";
-import { HourlyBaseTypes } from "types/hourly/hourlyTypes";
+import { HourlyBaseTypes } from "../types/hourly/hourlyTypes";
 
 export const Hourly = () => {
   const hourlyData: HourlyBaseTypes[] = useGetHourlyData();

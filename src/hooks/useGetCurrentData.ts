@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { weatherApi } from "../api";
 import wrapPromise from "../api/wrapPromise";
 import { combineEndPoint } from "../utils/combineEndPoint";
-import { GeolocationTypes } from "types/common/GeolocationTypes";
-import { CurrentBaseTypes } from "types/current/currentTypes";
+import { GeolocationTypes } from "../types/common/GeolocationTypes";
+import { CurrentBaseTypes } from "../types/current/currentTypes";
 
 function useGetCurrentData(): CurrentBaseTypes {
   const [resource, setResource] = useState<CurrentBaseTypes | any>();
