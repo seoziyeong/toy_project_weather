@@ -133,7 +133,7 @@ const Box = styled.div`
   padding: 40px;
   overflow-y: hidden;
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 `;
