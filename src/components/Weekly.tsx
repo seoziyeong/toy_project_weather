@@ -29,7 +29,7 @@ export const Weekly = () => {
 
   return (
     <>
-      {allDetails && (
+      {hourlyData.length > 0 && allDetails && (
         <Contents>
           <h2>주간 날씨</h2>
           <Box>

@@ -22,7 +22,7 @@ export const Hourly = () => {
 
   return (
     <>
-      {hourlyData && (
+      {hourlyData.length > 0 && (
         <Contents>
           <SlideButton onClick={leftMove} $moveIndex={moveIndex}>
             <img src="./img/icon_prev.png" alt="" />
