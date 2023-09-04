@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { weatherApi } from "../api";
 import wrapPromise from "../api/wrapPromise";
 import { combineEndPoint } from "../utils/combineEndPoint";
-import { GeolocationTypes } from "types/common/GeolocationTypes";
-import { AirBaseTypes } from "types/air/airTypes";
+import { GeolocationTypes } from "../types/common/GeolocationTypes";
+import { AirBaseTypes } from "../types/air/airTypes";
 
 function useGetAirData(): AirBaseTypes {
   const [resource, setResource] = useState<AirBaseTypes | any>();

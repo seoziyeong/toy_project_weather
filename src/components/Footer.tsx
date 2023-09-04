@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useGetCurrentData from "../hooks/useGetCurrentData";
-import { CurrentBaseTypes } from "types/current/currentTypes";
+import { CurrentBaseTypes } from "../types/current/currentTypes";
 
 export const Footer = () => {
   const currentData: CurrentBaseTypes = useGetCurrentData();

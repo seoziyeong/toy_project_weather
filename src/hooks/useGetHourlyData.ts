@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { weatherApi } from "../api";
 import wrapPromise from "../api/wrapPromise";
 import { combineEndPoint } from "../utils/combineEndPoint";
-import { GeolocationTypes } from "types/common/GeolocationTypes";
-import { HourlyBaseTypes } from "types/hourly/hourlyTypes";
+import { GeolocationTypes } from "../types/common/GeolocationTypes";
+import { HourlyBaseTypes } from "../types/hourly/hourlyTypes";
 
 function useGetHourlyData(): HourlyBaseTypes[] {
   const [resource, setResource] = useState<HourlyBaseTypes | any>([]);

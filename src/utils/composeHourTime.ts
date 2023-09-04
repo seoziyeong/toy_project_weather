@@ -1,4 +1,4 @@
-import { HourlyBaseTypes } from "types/hourly/hourlyTypes";
+import { HourlyBaseTypes } from "../types/hourly/hourlyTypes";
 
 // 24시간 표기법으로 되어있는 데이터를 오전/오후 12시간 표기법으로 작성하는 함수
 export const composeHourTime = (hour: HourlyBaseTypes) => {

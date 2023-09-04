@@ -1,4 +1,4 @@
-import { ToastStatusTypes } from "types/common/ToastStatusTypes";
+import { ToastStatusTypes } from "../types/common/ToastStatusTypes";
 
 // toast의 상태값에 따라 color 설정
 export const setColorHexCodeForToast = (status: ToastStatusTypes) => {

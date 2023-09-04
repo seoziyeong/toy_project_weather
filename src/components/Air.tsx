@@ -5,7 +5,7 @@ import useGetAirData from "../hooks/useGetAirData";
 import { showFineDustCondition } from "../utils/showFineDustCondition";
 import { showFineDustIcon } from "../utils/showFineDustIcon";
 import { setColorHexCodeAirConditionBadge } from "../utils/setColorHexCodeAirConditionBadge";
-import { AirBaseTypes } from "types/air/airTypes";
+import { AirBaseTypes } from "../types/air/airTypes";
 
 export const Air = () => {
   const airData: AirBaseTypes = useGetAirData();

@@ -6,8 +6,8 @@ import useGetCurrentData from "../hooks/useGetCurrentData";
 import useGetAirData from "../hooks/useGetAirData";
 import { showWeatherDescription } from "../utils/showWeatherDescription";
 import { showFineDustCondition } from "../utils/showFineDustCondition";
-import { CurrentBaseTypes } from "types/current/currentTypes";
-import { AirBaseTypes } from "types/air/airTypes";
+import { CurrentBaseTypes } from "../types/current/currentTypes";
+import { AirBaseTypes } from "../types/air/airTypes";
 
 export const Today = () => {
   const currentData: CurrentBaseTypes = useGetCurrentData();
