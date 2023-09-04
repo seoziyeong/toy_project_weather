@@ -1,5 +1,5 @@
 // 의류 아이템마다 고유 color 설정
-export const setColorHexCodeByItem = (item) => {
+export const setColorHexCodeByItem = (item: string) => {
   if (item === "패딩" || item === "셔츠") return "#2C3647";
   if (item === "무스탕" || item === "치마") return "#603E1F";
   if (item === "겨울코트" || item === "청바지") return "#004156";

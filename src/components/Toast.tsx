@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useGetAirData from "../hooks/useGetAirData";
 import useGetCurrentData from "../hooks/useGetCurrentData";
@@ -8,36 +8,44 @@ import { showToastIcon } from "../utils/showToastIcon";
 import { setColorHexCodeForToast } from "../utils/setColorHexCodeForToast";
 import { CurrentBaseTypes } from "types/current/currentTypes";
 import { AirBaseTypes } from "types/air/airTypes";
+import { ToastStatusTypes } from "types/common/ToastStatusTypes";
 
 export const Toast = () => {
   const currentData: CurrentBaseTypes = useGetCurrentData();
   const airData: AirBaseTypes = useGetAirData();
-  const status = setToastStatus(currentData, airData);
 
   const [position, setPosition] = useState(true);
+  const [status, setStatus] = useState<ToastStatusTypes>("ordinary");
+
+  useEffect(() => {
+    if (currentData) {
+      setStatus(setToastStatus(currentData, airData));
+    }
+  }, [currentData]);
+
   function handleClose() {
     setPosition(!position);
   }
 
-  if (status === "ordinary") {
-    return <></>;
-  }
-
   return (
-    <StyledToast
-      $status={status}
-      $position={position}
-      onClick={() => {
-        if (position) handleClose();
-      }}
-    >
-      <pre>{showAdviceInToast(status)}</pre>
-      <Icon>{showToastIcon(status)}</Icon>
-    </StyledToast>
+    <>
+      {currentData && airData && (
+        <StyledToast
+          $status={status}
+          $position={position}
+          onClick={() => {
+            if (position) handleClose();
+          }}
+        >
+          <pre>{showAdviceInToast(status)}</pre>
+          <Icon>{showToastIcon(status)}</Icon>
+        </StyledToast>
+      )}
+    </>
   );
 };
 
-const StyledToast = styled.div<{ $status: "rain" | "heatWave" | "coldWave" | "dust" | "ordinary"; $position: boolean }>`
+const StyledToast = styled.div<{ $status: ToastStatusTypes; $position: boolean }>`
   position: fixed;
   right: 16px;
   bottom: 16px;

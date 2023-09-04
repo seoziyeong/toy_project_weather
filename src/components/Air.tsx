@@ -10,8 +10,8 @@ import { AirBaseTypes } from "types/air/airTypes";
 export const Air = () => {
   const airData: AirBaseTypes = useGetAirData();
 
-  const [fineDust, setFineDust] = useState<string | undefined>("좋음");
-  const [ultraFineDust, setUltraFineDust] = useState<string | undefined>("좋음");
+  const [fineDust, setFineDust] = useState<string>("좋음");
+  const [ultraFineDust, setUltraFineDust] = useState<string>("좋음");
 
   useEffect(() => {
     if (airData) {
@@ -99,7 +99,7 @@ const GrayText = styled.p`
   margin: 8px 0;
 `;
 
-const Badge = styled.span<{ $condition: string | undefined }>`
+const Badge = styled.span<{ $condition: string }>`
   padding: 4px 8px;
   font-weight: 800;
   font-size: 14px;

@@ -35,5 +35,9 @@ export interface CurrentBaseTypes {
     deg: number;
     speed: number;
   };
-  rain: string | number;
+  // rain?: {
+  //   "1h": number;
+  //   "3h": number;
+  // };
+  rain?: any;
 }

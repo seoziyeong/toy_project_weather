@@ -1,5 +1,5 @@
 // toast의 상태값에 따라 color 설정
-export const setColorHexCodeAirConditionBadge = (condition) => {
+export const setColorHexCodeAirConditionBadge = (condition: string) => {
   if (condition === "좋음")
     return {
       border: "rgba(85, 195, 228, 0.4)",

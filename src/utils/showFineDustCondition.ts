@@ -12,4 +12,5 @@ export const showFineDustCondition = (kind: string, dust: number) => {
     if (dust <= 75) return "나쁨";
     if (dust >= 76) return "매우 나쁨";
   }
+  return "좋음";
 };

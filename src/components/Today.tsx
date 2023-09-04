@@ -16,10 +16,12 @@ export const Today = () => {
   const [temp, setTemp] = useState(0);
 
   useEffect(() => {
-    if (currentData && currentData.weather[0].icon.includes("n")) {
-      setIsDay(false);
+    if (currentData) {
       const tempData = Math.round(currentData.main.temp);
       setTemp(tempData);
+    }
+    if (currentData && currentData.weather[0].icon.includes("n")) {
+      setIsDay(false);
     }
   }, [currentData]);
 
@@ -35,7 +37,7 @@ export const Today = () => {
               <p>현재</p>
               <TempInfo>
                 <div>{Math.round(currentData.main.temp)}˚</div>
-                <div>{showWeatherDescription(currentData.weather[0].icon.substr(0, 2))}</div>
+                <div>{showWeatherDescription(currentData.weather[0].icon.slice(0, 2))}</div>
               </TempInfo>
               <p>
                 <img src="./img/icon_humidity.png" alt="humidity" />
