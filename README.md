@@ -8,7 +8,7 @@
 
 - 2023.04  기상 특수상황(ex. 폭염주의보, 한파특보 등) 알림 toast 기능 추가
 - 2023.08  반응형 ui 구현
-- 진행 중 : TypeScript Migration
+- 2023.09  TypeScript Migration
 - 구현 예정 : 다크모드
 ```
 
@@ -29,7 +29,7 @@ OpenWeatherMap api를 활용하여 현재 접속 지역의 날씨 정보를 제�
 
 ### Tech.
 
-- `프론트엔드` : JavaScript, React, Styled-components, OpenWeatherMap api
+- `프론트엔드` : TypeScript, React, Styled-components, OpenWeatherMap api
 - `기획 & 디자인` : Figma
 
 <br>
